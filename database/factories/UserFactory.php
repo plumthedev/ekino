@@ -28,26 +28,12 @@ class UserFactory extends Factory
 	public function definition()
 	{
 		return [
-			'first_name'        => $this->faker->firstName,
-			'last_name'         => $this->faker->lastName,
-			'email'             => $this->faker->unique()->safeEmail,
-			'password'          => self::DEFAULT_PASSWORD,
+			'first_name'  => $this->faker->firstName,
+			'last_name'   => $this->faker->lastName,
+			'email'       => $this->faker->unique()->safeEmail,
+			'password'    => self::DEFAULT_PASSWORD,
 			'verified_at' => now(),
 		];
-	}
-
-	/**
-	 * Not verified user state.
-	 *
-	 * @return \Database\Factories\UserFactory
-	 */
-	public function notVerified(): UserFactory
-	{
-		return $this->state(function (){
-			return [
-				'verified_at' => null,
-			];
-		});
 	}
 
 	/**
@@ -57,10 +43,24 @@ class UserFactory extends Factory
 	 */
 	public function nameless(): UserFactory
 	{
-		return $this->state(function (){
+		return $this->state(function () {
 			return [
 				'first_name' => null,
 				'last_name'  => null,
+			];
+		});
+	}
+
+	/**
+	 * Not verified user state.
+	 *
+	 * @return \Database\Factories\UserFactory
+	 */
+	public function notVerified(): UserFactory
+	{
+		return $this->state(function () {
+			return [
+				'verified_at' => null,
 			];
 		});
 	}
