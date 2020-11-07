@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+COMPOSE="docker-compose"
+COMPOSEBUILD="${COMPOSE} build"
+COMPOSEEXEC="docker-compose exec --user=laradock workspace"
+SERVICES="nginx mysql phpmyadmin redis workspace mailhog"
+
+# go to laradock directory
+cd laradock;
+
+if [[ $# -gt 0 ]]; then
+
+  # docker commands
+  if [[ "$1" == "build" ]]; then
+    shift 1
+    ${COMPOSEBUILD} ${SERVICES}
+  elif [[ "$1" == "force-build" ]]; then
+    shift 1
+    ${COMPOSEBUILD} --force-rm --no-cache ${SERVICES}
+  elif [[ "$1" == "start" ]]; then
+    shift 1
+    ${COMPOSE} up -d ${SERVICES}
+  elif [[ "$1" == "stop" ]]; then
+    shift 1
+    ${COMPOSE} stop ${SERVICES}
+  elif [[ "$1" == "kill" ]]; then
+    shift 1
+    ${COMPOSE} rm --force --stop ${SERVICES}
+
+  # project commands
+  elif [[ "$1" == "bash" ]]; then
+    shift 1
+    ${COMPOSEEXEC} bash "$@"
+  elif [[ "$1" == "php" ]]; then
+    shift 1
+    ${COMPOSEEXEC} php "$@"
+  elif [[ "$1" == "art" || "$1" == "artisan" ]]; then
+    shift 1
+    ${COMPOSEEXEC} php artisan "$@"
+  elif [[ "$1" == "composer" ]]; then
+    shift 1
+    ${COMPOSEEXEC} composer "$@"
+
+  # if anything else, run this on docker-compose
+  else
+    ${COMPOSE} "$@"
+  fi
+else
+  # if no arguments, show docker processes
+  ${COMPOSE} ps
+fi
