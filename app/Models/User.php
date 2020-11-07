@@ -31,7 +31,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $casts = [
-		'email_verified_at' => 'datetime',
+		'verified_at' => 'datetime',
 	];
 
 	/**
@@ -67,7 +67,7 @@ class User extends Authenticatable
 	}
 
 	/**
-	 * Password mutator.
+	 * Password setter.
 	 * Remember to always hash passwords in databases.
 	 *
 	 * @param string $password
