@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * User model.
  *
+ * @property-read int            $id
  * @property string              $first_name
  * @property string              $last_name
  * @property string              $full_name
