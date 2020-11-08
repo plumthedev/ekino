@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
 	public function runLocalSeeding(): void
 	{
 		$this->call(UsersSeeder::class);
-		$this->call(MoviesSeeder::class);
+		$this->call(CinematographySeeder::class);
 	}
 
 	/**

@@ -1,14 +1,146 @@
 <?php
 
-
 namespace Database\Factories;
 
-
+use App\Models\Cinematography;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-abstract class CinematographyFactory extends Factory
+class CinematographyFactory extends Factory
 {
+	/**
+	 * The name of the factory's corresponding model.
+	 *
+	 * @var string
+	 */
+	protected $model = \App\Models\Cinematography::class;
+
+	/**
+	 * Cinematography default state.
+	 *
+	 * @return array
+	 */
+	public function definition()
+	{
+		return [
+			'type'        => $this->generateType(),
+			'title'       => $this->generateTitle(),
+			'content'     => $this->generateContent(),
+			'duration'    => $this->generateDuration(),
+			'rating'      => $this->generateRating(),
+			'meta'        => $this->generateMeta(),
+			'produced_at' => $this->generateProducedAt(),
+		];
+	}
+
+	/**
+	 * High rated cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function highRated(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'rating' => $this->generateRating(4),
+			];
+		});
+	}
+
+	/**
+	 * Low rated cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function lowRated(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'rating' => $this->generateRating(1, 2),
+			];
+		});
+	}
+
+	/**
+	 * Movie type cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function movie(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'type' => Cinematography::TYPE_MOVIE,
+			];
+		});
+	}
+
+	/**
+	 * Premiere cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function premiere(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'produced_at' => $this->generateProducedAt(now()->subWeek()),
+				'meta'        => $this->generateMeta([
+					'is_premiere' => true,
+				]),
+			];
+		});
+	}
+
+	/**
+	 * Recommended cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function recommended(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'meta' => $this->generateMeta([
+					'is_recommended' => true,
+				]),
+			];
+		});
+	}
+
+	/**
+	 * Recommended premiere cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function recommendedPremiere(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'produced_at' => $this->generateProducedAt(now()->subWeek()),
+				'meta'        => $this->generateMeta([
+					'is_premiere'    => true,
+					'is_recommended' => true,
+				]),
+			];
+		});
+	}
+
+	/**
+	 * Series type cinematography state.
+	 *
+	 * @return \Database\Factories\CinematographyFactory
+	 */
+	public function series(): CinematographyFactory
+	{
+		return $this->state(function () {
+			return [
+				'type'     => Cinematography::TYPE_SERIES,
+				'duration' => null
+			];
+		});
+	}
+
 	/**
 	 * Generate cinematography content.
 	 *
@@ -93,5 +225,18 @@ abstract class CinematographyFactory extends Factory
 		$title = Str::ucfirst($title);
 
 		return $title;
+	}
+
+	/**
+	 * Generate cinematography type.
+	 *
+	 * @return string
+	 */
+	protected function generateType(): string
+	{
+		return $this->faker->randomElement([
+			Cinematography::TYPE_MOVIE,
+			Cinematography::TYPE_SERIES,
+		]);
 	}
 }

@@ -6,21 +6,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Movie model.
+ * Cinematography model.
  *
  * @property int                 $id
+ * @property string              $type
  * @property string              $title
  * @property string              $content
- * @property string              $duration
+ * @property string|null         $duration
  * @property string              $rating
  * @property array               $meta
  * @property-read \Carbon\Carbon $produced_at
  * @property-read \Carbon\Carbon $updated_at
  * @property-read \Carbon\Carbon $created_at
  */
-class Movie extends Model
+class Cinematography extends Model
 {
 	use HasFactory;
+
+	/**
+	 * Cinematography movie type.
+	 *
+	 * @var string
+	 */
+	const TYPE_MOVIE = 'movie';
+
+	/**
+	 * Cinematography series type.
+	 *
+	 * @var string
+	 */
+	const TYPE_SERIES = 'series';
 
 	/**
 	 * The attributes that should be cast to native types.

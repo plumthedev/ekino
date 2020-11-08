@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMoviesTable extends Migration
+class CreateCinematographiesTable extends Migration
 {
 	/**
 	 * Movies table name.
 	 *
 	 * @var string
 	 */
-	protected $tableName = 'movies';
+	protected $tableName = 'cinematographies';
 
 	/**
 	 * Reverse the migrations.
@@ -32,9 +32,10 @@ class CreateMoviesTable extends Migration
 	{
 		Schema::create($this->tableName, function (Blueprint $table) {
 			$table->id();
+			$table->string('type');
 			$table->string('title');
 			$table->longText('content');
-			$table->time('duration');
+			$table->time('duration')->nullable();
 			$table->float('rating');
 			$table->json('meta');
 			$table->date('produced_at');
