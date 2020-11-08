@@ -6,7 +6,7 @@ use App\Models\Cinematography;
 use Database\Factories\CinematographyFactory;
 use Illuminate\Database\Seeder;
 
-class CinematographySeeder extends Seeder
+class CinematographiesSeeder extends Seeder
 {
 	/**
 	 * Run the database seeds.
