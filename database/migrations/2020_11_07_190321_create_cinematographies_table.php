@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateCinematographiesTable extends Migration
 {
 	/**
-	 * Movies table name.
+	 * Cinematographies table name.
 	 *
 	 * @var string
 	 */
