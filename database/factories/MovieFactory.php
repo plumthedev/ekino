@@ -25,7 +25,7 @@ class MovieFactory extends Factory
 			'title'       => $this->generateTitle(),
 			'content'     => $this->faker->realText(1500),
 			'duration'    => $this->generateDuration(),
-			'rating'      => $this->faker->randomFloat(2, 1, 10),
+			'rating'      => $this->generateRating(),
 			'meta'        => $this->generateMeta(),
 			'produced_at' => $this->generateProducedAt(),
 		];
@@ -40,7 +40,7 @@ class MovieFactory extends Factory
 	{
 		return $this->state(function () {
 			return [
-				'rating' => $this->faker->randomFloat(2, 8, 10),
+				'rating' => $this->generateRating(4),
 			];
 		});
 	}
@@ -54,7 +54,7 @@ class MovieFactory extends Factory
 	{
 		return $this->state(function () {
 			return [
-				'rating' => $this->faker->randomFloat(2, 1, 3),
+				'rating' => $this->generateRating(1, 2),
 			];
 		});
 	}
@@ -154,6 +154,19 @@ class MovieFactory extends Factory
 	protected function generateProducedAt(string $startDate = '-30 years'): string
 	{
 		return $this->faker->dateTimeBetween($startDate)->format('Y-m-d');
+	}
+
+	/**
+	 * * Generate movie rating.
+	 *
+	 * @param int $min
+	 * @param int $max
+	 *
+	 * @return float
+	 */
+	protected function generateRating(int $min = 1, int $max = 5): float
+	{
+		return $this->faker->randomFloat(2, $min, $max);
 	}
 
 	/**
