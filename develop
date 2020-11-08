@@ -13,19 +13,19 @@ if [[ $# -gt 0 ]]; then
   # docker commands
   if [[ "$1" == "build" ]]; then
     shift 1
-    ${COMPOSEBUILD} ${SERVICES}
+    ${COMPOSEBUILD} ${SERVICES} "$@"
   elif [[ "$1" == "force-build" ]]; then
     shift 1
-    ${COMPOSEBUILD} --force-rm --no-cache ${SERVICES}
+    ${COMPOSEBUILD} --force-rm --no-cache ${SERVICES} "$@"
   elif [[ "$1" == "start" ]]; then
     shift 1
-    ${COMPOSE} up -d ${SERVICES}
+    ${COMPOSE} up -d ${SERVICES} "$@"
   elif [[ "$1" == "stop" ]]; then
     shift 1
-    ${COMPOSE} stop ${SERVICES}
+    ${COMPOSE} stop ${SERVICES} "$@"
   elif [[ "$1" == "kill" ]]; then
     shift 1
-    ${COMPOSE} rm --force --stop ${SERVICES}
+    ${COMPOSE} rm --force --stop ${SERVICES} "$@"
 
   # project commands
   elif [[ "$1" == "bash" ]]; then
