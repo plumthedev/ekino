@@ -27,16 +27,17 @@ class RatesSeeder extends Seeder
 	 */
 	protected function createRates(): void
 	{
-		$this->rateFactory()->count(125)->make()
-			->each(function (Rate $rate) {
-				$cinematography = $this->findRandomCinematography();
-				$author = $this->findRandomAuthor();
+		$ratesCount = 0;
 
-				$rate->user_id = $author->id;
-				$rate->cinematography_id = $cinematography->id;
+		while ($ratesCount < 125) {
+			$rate = $this->makeRate();
+			$rate->cinematography()->associate(
+				$this->findRandomCinematography()
+			);
 
-				$rate->save();
-			});
+			$rate->save();
+			$ratesCount++;
+		}
 	}
 
 	/**
@@ -57,6 +58,18 @@ class RatesSeeder extends Seeder
 	protected function findRandomCinematography(): Cinematography
 	{
 		return Cinematography::inRandomOrder()->first();
+	}
+
+	/**
+	 * Make rate by random author.
+	 *
+	 * @return \App\Models\Rate
+	 */
+	protected function makeRate(): Rate
+	{
+		return $this->findRandomAuthor()->rates()->make(
+			$this->rateFactory()->makeOne()->toArray()
+		);
 	}
 
 	/**
