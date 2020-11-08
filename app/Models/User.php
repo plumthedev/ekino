@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -64,6 +65,16 @@ class User extends Authenticatable
 	{
 		$fullName = "{$this->first_name} {$this->last_name}";
 		return trim($fullName);
+	}
+
+	/**
+	 * Get user related rates.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function rates(): HasMany
+	{
+		return $this->hasMany(\App\Models\Rate::class, 'user_id', 'id');
 	}
 
 	/**

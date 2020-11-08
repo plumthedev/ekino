@@ -4,20 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Cinematography model.
  *
- * @property int                 $id
- * @property string              $type
- * @property string              $title
- * @property string              $content
- * @property string|null         $duration
- * @property string              $rating
- * @property array               $meta
- * @property-read \Carbon\Carbon $produced_at
- * @property-read \Carbon\Carbon $updated_at
- * @property-read \Carbon\Carbon $created_at
+ * @property int                                      $id
+ * @property string                                   $type
+ * @property string                                   $title
+ * @property string                                   $content
+ * @property string|null                              $duration
+ * @property string                                   $rating
+ * @property array                                    $meta
+ * @property \Illuminate\Database\Eloquent\Collection $rates
+ * @property-read \Carbon\Carbon                      $produced_at
+ * @property-read \Carbon\Carbon                      $updated_at
+ * @property-read \Carbon\Carbon                      $created_at
  */
 class Cinematography extends Model
 {
@@ -57,6 +59,16 @@ class Cinematography extends Model
 	{
 		$rating = $this->attributes['rating'] ?? 0;
 		return rating_format($rating);
+	}
+
+	/**
+	 * Get cinematography related rates.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function rates(): HasMany
+	{
+		return $this->hasMany(\App\Models\Rate::class, 'cinematography_id', 'id');
 	}
 
 	/**
