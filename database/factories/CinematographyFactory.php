@@ -42,7 +42,7 @@ class CinematographyFactory extends Factory
 	{
 		return $this->state(function () {
 			return [
-				'rating' => $this->generateRating(4),
+				'rating' => $this->generateRating(4, 5),
 			];
 		});
 	}
