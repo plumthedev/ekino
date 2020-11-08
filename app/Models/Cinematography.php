@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -49,6 +50,21 @@ class Cinematography extends Model
 		'meta'        => 'array',
 		'produced_at' => 'datetime',
 	];
+
+	/**
+	 * Get cinematography related actors.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function actors(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			Actor::class,
+			'actor_performs',
+			'cinematography_id',
+			'actor_id',
+		)->withPivot(['perform_name']);
+	}
 
 	/**
 	 * Rating attribute getter.
