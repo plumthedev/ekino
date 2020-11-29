@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class UserFactory extends Factory
 {
 	/**
-	 * Default password for the user.
-	 *
-	 * @var string
-	 */
-	const DEFAULT_PASSWORD = 'password';
-
-	/**
 	 * The name of the factory's corresponding model.
 	 *
 	 * @var string
@@ -31,7 +24,7 @@ class UserFactory extends Factory
 			'first_name'  => $this->faker->firstName,
 			'last_name'   => $this->faker->lastName,
 			'email'       => $this->faker->unique()->safeEmail,
-			'password'    => self::DEFAULT_PASSWORD,
+			'password'    => config('auth.passwords.default.standard', 'password'),
 			'verified_at' => now(),
 		];
 	}

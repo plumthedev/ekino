@@ -99,6 +99,10 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'default' => [
+        	'standard'   => env('STANDARD_USER_PASSWORD', 'password'),
+        	'privileged' => env('PRIVILEGED_USER_PASSWORD', 'password'),
+        ]
     ],
 
     /*
