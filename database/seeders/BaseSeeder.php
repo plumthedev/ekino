@@ -15,7 +15,7 @@ class BaseSeeder extends Seeder
 	 *
 	 * @var array[]
 	 */
-	const SYSTEM_USERS = [
+	protected $users = [
 		[
 			'email' => 'developer@strefakursow.pl',
 			'role'  => Role::ADMINISTRATOR,
@@ -41,9 +41,9 @@ class BaseSeeder extends Seeder
 	 */
 	protected function assignRoleToSystemUsers(): void
 	{
-		foreach (self::SYSTEM_USERS as $user) {
-			$systemUser = User::where('email', $user['email'])->first();
-			$role = Role::where('name', $user['role'])->first();
+		foreach ($this->users as $user) {
+			$systemUser = User::where('email', $user['email'])->firstOrFail();
+			$role = Role::firstOrCreate(['name' => $user['role']]);
 
 			$systemUser->assignRole($role);
 		}
@@ -67,11 +67,11 @@ class BaseSeeder extends Seeder
 	 */
 	protected function createSystemUsers(): void
 	{
-		foreach (self::SYSTEM_USERS as $user) {
-			$this->userFactory()->createOne([
+		foreach ($this->users as $user) {
+			$this->userFactory()->makeOne([
 				'email'    => $user['email'],
-				'password' => env('SYSTEM_USER_PASSWORD', UserFactory::DEFAULT_PASSWORD),
-			]);
+				'password' => config('auth.passwords.default.privileged', 'password'),
+			])->saveQuietly(); // save system users without events
 		}
 	}
 
