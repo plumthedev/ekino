@@ -17,6 +17,9 @@ if [[ $# -gt 0 ]]; then
   elif [[ "$1" == "force-build" ]]; then
     shift 1
     ${COMPOSEBUILD} --force-rm --no-cache ${SERVICES} "$@"
+  elif [[ "$1" == "force-build-only" ]]; then
+    shift 1
+    ${COMPOSEBUILD} --force-rm --no-cache "$@"
   elif [[ "$1" == "start" ]]; then
     shift 1
     ${COMPOSE} up -d ${SERVICES} "$@"
