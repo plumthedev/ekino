@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cinematography;
+use App\Models\SubscriptionPlan;
 use Database\Factories\CinematographyFactory;
 use Illuminate\Database\Seeder;
 

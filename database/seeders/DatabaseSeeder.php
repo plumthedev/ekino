@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(CinematographiesSeeder::class);
 		$this->call(RatesSeeder::class);
 		$this->call(ActorsSeeder::class);
+		$this->call(SubscriptionPlansSeeder::class);
 	}
 
 	/**

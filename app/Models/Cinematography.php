@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                   $rating
  * @property array                                    $meta
  * @property \Illuminate\Database\Eloquent\Collection $rates
+ * @property \App\Models\SubscriptionPlan             $subscriptionPlan
  * @property-read \Carbon\Carbon                      $produced_at
  * @property-read \Carbon\Carbon                      $updated_at
  * @property-read \Carbon\Carbon                      $created_at
@@ -95,5 +97,20 @@ class Cinematography extends Model
 	public function setRatingAttribute(float $rating)
 	{
 		$this->attributes['rating'] = rating_format($rating);
+	}
+
+	/**
+	 * Get cinematography related subscription plans.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function subscriptionPlan(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			SubscriptionPlan::class,
+			'cinematographies_subscription_plans',
+			'cinematography_id',
+			'subscription_plan_id'
+		);
 	}
 }
