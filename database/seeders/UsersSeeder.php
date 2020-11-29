@@ -17,24 +17,6 @@ class UsersSeeder extends Seeder
 	public function run(): void
 	{
 		$this->createUsers();
-		$this->assignRoleToUsers();
-	}
-
-	/**
-	 * Assign role to users.
-	 * Exclude system users.
-	 *
-	 * @return void
-	 */
-	protected function assignRoleToUsers(): void
-	{
-		$systemUsersEmail = array_column(BaseSeeder::SYSTEM_USERS, 'email');
-		$users = User::whereNotIn('email', $systemUsersEmail)->get();
-
-		$users->each(function (User $user) {
-			$role = Role::where('name', Role::USER)->first();
-			$user->assignRole($role);
-		});
 	}
 
 	/**

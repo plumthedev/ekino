@@ -21,6 +21,7 @@ class EventServiceProvider extends ServiceProvider
 
 	protected $observers = [
 		\App\Models\Rate::class => \App\Observers\RateObserver::class,
+		\App\Models\User::class => \App\Observers\UserObserver::class,
 	];
 
 	/**
