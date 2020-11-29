@@ -24,7 +24,6 @@ class UserObserver
 	 */
 	protected function assignUserRole(User $user): void
 	{
-		if ($user->role)
 		$role = Role::firstOrCreate(['name' => Role::USER]);
 		$user->assignRole($role);
 	}
