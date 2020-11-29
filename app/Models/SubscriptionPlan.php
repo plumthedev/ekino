@@ -5,8 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Subscription plan model.
+ *
+ * @property-read int                                 $id
+ * @property string                                   $name
+ * @property string                                   $description
+ * @property int                                      $price
+ * @property boolean                                  $is_featured
+ * @property string                                   $access_duration
+ * @property \Illuminate\Database\Eloquent\Collection $cinematographies
+ * @property-read \Carbon\Carbon                      $updated_at
+ * @property-read \Carbon\Carbon                      $created_at
+ */
 class SubscriptionPlan extends Model
 {
 	use HasFactory;
