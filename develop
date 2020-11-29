@@ -3,10 +3,10 @@
 COMPOSE="docker-compose"
 COMPOSEBUILD="${COMPOSE} build"
 COMPOSEEXEC="docker-compose exec --user=laradock workspace"
-SERVICES="nginx mysql phpmyadmin redis workspace mailhog"
+SERVICES="php-fpm nginx mysql phpmyadmin redis workspace mailhog"
 
 # go to laradock directory
-cd laradock;
+cd storage/laradock;
 
 if [[ $# -gt 0 ]]; then
 
@@ -26,6 +26,9 @@ if [[ $# -gt 0 ]]; then
   elif [[ "$1" == "kill" ]]; then
     shift 1
     ${COMPOSE} rm --force --stop ${SERVICES} "$@"
+  elif [[ "$1" == "tear-down-everything" ]]; then
+    shift 1
+    docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 
   # project commands
   elif [[ "$1" == "bash" ]]; then
