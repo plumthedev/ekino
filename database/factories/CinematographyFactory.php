@@ -34,34 +34,6 @@ class CinematographyFactory extends Factory
 	}
 
 	/**
-	 * High rated cinematography state.
-	 *
-	 * @return \Database\Factories\CinematographyFactory
-	 */
-	public function highRated(): CinematographyFactory
-	{
-		return $this->state(function () {
-			return [
-				'rating' => $this->generateRating(4, 5),
-			];
-		});
-	}
-
-	/**
-	 * Low rated cinematography state.
-	 *
-	 * @return \Database\Factories\CinematographyFactory
-	 */
-	public function lowRated(): CinematographyFactory
-	{
-		return $this->state(function () {
-			return [
-				'rating' => $this->generateRating(1, 2),
-			];
-		});
-	}
-
-	/**
 	 * Movie type cinematography state.
 	 *
 	 * @return \Database\Factories\CinematographyFactory

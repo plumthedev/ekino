@@ -36,8 +36,6 @@ class CinematographiesSeeder extends Seeder
 	 */
 	protected function createMovies(): void
 	{
-		$this->movieFactory()->count(2)->highRated()->create();
-		$this->movieFactory()->count(2)->lowRated()->create();
 		$this->movieFactory()->count(2)->premiere()->create();
 		$this->movieFactory()->count(2)->recommended()->create();
 		$this->movieFactory()->count(2)->recommendedPremiere()->create();
@@ -50,8 +48,6 @@ class CinematographiesSeeder extends Seeder
 	 */
 	protected function createSeries(): void
 	{
-		$this->seriesFactory()->count(2)->highRated()->create();
-		$this->seriesFactory()->count(2)->lowRated()->create();
 		$this->seriesFactory()->count(2)->premiere()->create();
 		$this->seriesFactory()->count(2)->recommended()->create();
 		$this->seriesFactory()->count(2)->recommendedPremiere()->create();
