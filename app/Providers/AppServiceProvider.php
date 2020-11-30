@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Config\Repository;
 use Illuminate\Support\ServiceProvider;
+use App\Services\ImageGenerator\Generator as ImageGenerator;
+use App\Services\ImageGenerator\Contracts\Generator as ImageGeneratorContract;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		$this->includeHelpers();
+		$this->bindImageGenerator();
 	}
 
 	/**
@@ -38,5 +42,22 @@ class AppServiceProvider extends ServiceProvider
 		if (file_exists($helpers)) {
 			require_once $helpers;
 		}
+	}
+
+
+	/**
+	 * Bind instance of image generator in system.
+	 *
+	 * @return void
+	 */
+	protected function bindImageGenerator(): void
+	{
+		$this->app->bind(ImageGeneratorContract::class, function () {
+			return new ImageGenerator(
+				new Repository(
+					config('image_generator')
+				)
+			);
+		});
 	}
 }

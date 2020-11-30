@@ -28,6 +28,12 @@ class Cinematography extends Model
 {
 	use HasFactory;
 
+	const MEDIA_COLLECTION_COVER = 'cinematography.cover';
+
+	const MEDIA_COLLECTION_POSTER = 'cinematography.poster';
+
+	const MEDIA_COLLECTION_GALLERY = 'cinematography.gallery';
+
 	/**
 	 * Cinematography movie type.
 	 *

@@ -6,7 +6,12 @@ return [
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
-    'disk_name' => env('MEDIA_DISK', 'public'),
+    'disk_name' => env('MEDIA_DISK', 'media'),
+
+    /*
+	 * Unique media key used to generate path based on md5.
+	 */
+    'key' => env('MEDIA_UNIQUE_KEY', 'media'),
 
     /*
      * The maximum file size of an item in bytes.
@@ -85,7 +90,7 @@ return [
     /*
      * The class that contains the strategy for determining a media file's path.
      */
-    'path_generator' => null,
+    'path_generator' => \App\Support\MediaLibrary\PathGenerator\Md5PathGenerator::class,
 
     /*
      * Medialibrary will try to optimize all converted images by removing

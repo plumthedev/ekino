@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait as InteractsWithMedia;
 
 /**
  * User model.
@@ -17,9 +19,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Carbon\Carbon $updated_at
  * @property-read \Carbon\Carbon $created_at
  */
-class Actor extends Model
+class Actor extends Model implements HasMedia
 {
-	use HasFactory;
+	use HasFactory, InteractsWithMedia;
+
+	/**
+	 * Media collection - actor avatar.
+	 *
+	 * @var string
+	 */
+	const MEDIA_COLLECTION_AVATAR = 'actor.avatar';
 
 	/**
 	 * Get actor related cinematographies.
