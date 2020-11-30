@@ -15,6 +15,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "moneyphp/money": "^3.3",
+        "spatie/laravel-medialibrary": "^7.19",
         "spatie/laravel-permission": "^3.17"
     },
     "require-dev": {
