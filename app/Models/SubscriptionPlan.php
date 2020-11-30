@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Subscription plan model.
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read int                                 $id
  * @property string                                   $name
  * @property string                                   $description
- * @property int                                      $price
+ * @property \Money\Money                             $price
  * @property boolean                                  $is_featured
  * @property string                                   $access_duration
  * @property \Illuminate\Database\Eloquent\Collection $cinematographies
@@ -50,15 +50,14 @@ class SubscriptionPlan extends Model
 	/**
 	 * Get subscription plans related cinematographies.
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function cinematographies(): BelongsToMany
+	public function cinematographies(): HasMany
 	{
-		return $this->belongsToMany(
-			Cinematography::class,
-			'cinematographies_subscription_plans',
+		return $this->hasMany(
+			\App\Models\Cinematography::class,
 			'subscription_plan_id',
-			'cinematography_id',
+			'id'
 		);
 	}
 }
