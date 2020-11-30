@@ -20,7 +20,15 @@ class CreateActorPerformsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('actors_performs');
+		if (Schema::hasTable($this->tableName)) {
+
+			Schema::table($this->tableName, function (Blueprint $table) {
+				$table->dropForeign('actor_id');
+				$table->dropForeign('cinematography_id');
+			});
+
+			Schema::dropIfExists($this->tableName);
+		}
 	}
 
 	/**
