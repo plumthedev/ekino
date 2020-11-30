@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                   $title
  * @property string                                   $content
  * @property string|null                              $duration
- * @property string                                   $rating
+ * @property string                                   $float
  * @property array                                    $meta
  * @property \Illuminate\Database\Eloquent\Collection $rates
  * @property \App\Models\SubscriptionPlan             $subscriptionPlan
@@ -61,7 +61,7 @@ class Cinematography extends Model
 	public function actors(): BelongsToMany
 	{
 		return $this->belongsToMany(
-			Actor::class,
+			\App\Models\Actor::class,
 			'actor_performs',
 			'cinematography_id',
 			'actor_id',
@@ -86,7 +86,11 @@ class Cinematography extends Model
 	 */
 	public function rates(): HasMany
 	{
-		return $this->hasMany(\App\Models\Rate::class, 'cinematography_id', 'id');
+		return $this->hasMany(
+			\App\Models\Rate::class,
+			'cinematography_id',
+			'id'
+		);
 	}
 
 	/**
@@ -102,15 +106,14 @@ class Cinematography extends Model
 	/**
 	 * Get cinematography related subscription plans.
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function subscriptionPlan(): BelongsToMany
+	public function subscriptionPlan(): BelongsTo
 	{
-		return $this->belongsToMany(
-			SubscriptionPlan::class,
-			'cinematographies_subscription_plans',
-			'cinematography_id',
-			'subscription_plan_id'
+		return $this->belongsTo(
+			\App\Models\SubscriptionPlan::class,
+			'subscription_plan_id',
+			'id'
 		);
 	}
 }
