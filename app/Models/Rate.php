@@ -51,7 +51,11 @@ class Rate extends Model
 	 */
 	public function cinematography(): BelongsTo
 	{
-		return $this->belongsTo(\App\Models\Cinematography::class, 'cinematography_id', 'id');
+		return $this->belongsTo(
+			\App\Models\Cinematography::class,
+			'cinematography_id',
+			'id'
+		);
 	}
 
 	/**

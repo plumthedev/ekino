@@ -12,15 +12,18 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * User model.
  *
- * @property-read int            $id
- * @property string              $first_name
- * @property string              $last_name
- * @property string              $full_name
- * @property string              $email
- * @property string              $password
- * @property-read \Carbon\Carbon $verified_at
- * @property-read \Carbon\Carbon $updated_at
- * @property-read \Carbon\Carbon $created_at
+ * @property-read int                                 $id
+ * @property-read int                                 $subscription_plan_id
+ * @property string                                   $first_name
+ * @property string                                   $last_name
+ * @property string                                   $full_name
+ * @property string                                   $email
+ * @property string                                   $password
+ * @property \Illuminate\Database\Eloquent\Collection $orders
+ * @property \Illuminate\Database\Eloquent\Collection $rates
+ * @property-read \Carbon\Carbon                      $verified_at
+ * @property-read \Carbon\Carbon                      $updated_at
+ * @property-read \Carbon\Carbon                      $created_at
  */
 class User extends Authenticatable
 {
@@ -68,13 +71,31 @@ class User extends Authenticatable
 	}
 
 	/**
+	 * Get user related orders.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function orders(): HasMany
+	{
+		return $this->hasMany(
+			\App\Models\Order::class,
+			'user_id',
+			'id'
+		);
+	}
+
+	/**
 	 * Get user related rates.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
 	public function rates(): HasMany
 	{
-		return $this->hasMany(\App\Models\Rate::class, 'user_id', 'id');
+		return $this->hasMany(
+			\App\Models\Rate::class,
+			'user_id',
+			'id'
+		);
 	}
 
 	/**

@@ -29,7 +29,7 @@ class Actor extends Model
 	public function cinematographies()
 	{
 		return $this->belongsToMany(
-			Cinematography::class,
+			\App\Models\Cinematography::class,
 			'actor_performs',
 			'actor_id',
 			'cinematography_id',
