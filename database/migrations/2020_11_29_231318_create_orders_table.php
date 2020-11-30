@@ -20,7 +20,15 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->tableName);
+	    if (Schema::hasTable($this->tableName)) {
+
+		    Schema::table($this->tableName, function (Blueprint $table) {
+			    $table->dropForeign('user_id');
+			    $table->dropForeign('cinematography_id');
+		    });
+
+		    Schema::dropIfExists($this->tableName);
+	    }
     }
 
 	/**

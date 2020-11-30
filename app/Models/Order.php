@@ -24,10 +24,25 @@ class Order extends Model
 {
 	use HasFactory;
 
+	/**
+	 * Order payment status - pending.
+	 *
+	 * @var string
+	 */
 	const PAYMENT_STATUS_PENDING = 'pending';
 
+	/**
+	 * Order payment status - completed.
+	 *
+	 * @var string
+	 */
 	const PAYMENT_STATUS_COMPLETE = 'complete';
 
+	/**
+	 * Order payment status - canceled.
+	 *
+	 * @var string
+	 */
 	const PAYMENT_STATUS_CANCELED = 'canceled';
 
 	/**
@@ -56,7 +71,11 @@ class Order extends Model
 	 */
 	public function user(): HasOne
 	{
-		return $this->hasOne(User::class, 'user_id', 'id');
+		return $this->hasOne(
+			\App\Models\User::class,
+			'user_id',
+			'id'
+		);
 	}
 
 	/**
@@ -66,6 +85,10 @@ class Order extends Model
 	 */
 	public function cinematography(): HasOne
 	{
-		return $this->hasOne(Cinematography::class, 'cinematography_id', 'id');
+		return $this->hasOne(
+			\App\Models\Cinematography::class,
+			'cinematography_id',
+			'id'
+		);
 	}
 }

@@ -57,6 +57,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(RatesSeeder::class);
 		$this->call(ActorsSeeder::class);
 		$this->call(SubscriptionPlansSeeder::class);
+		$this->call(OrdersSeeder::class);
 	}
 
 	/**

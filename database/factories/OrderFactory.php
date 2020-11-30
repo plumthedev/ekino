@@ -23,7 +23,11 @@ class OrderFactory extends Factory
 	{
 		return [
 			'cost'           => $this->faker->randomFloat(2, 15, 50),
-			'payment_status' => Order::PAYMENT_STATUS_PENDING,
+			'payment_status' => $this->faker->randomElement([
+				Order::PAYMENT_STATUS_PENDING,
+				Order::PAYMENT_STATUS_COMPLETE,
+				Order::PAYMENT_STATUS_CANCELED,
+			]),
 		];
 	}
 
@@ -52,6 +56,20 @@ class OrderFactory extends Factory
 		return $this->state(function () {
 			return [
 				'payment_status' => Order::PAYMENT_STATUS_COMPLETE,
+			];
+		});
+	}
+
+	/**
+	 * Order payment status pending state.
+	 *
+	 * @return \Database\Factories\OrderFactory
+	 */
+	public function paymentStatusPending(): OrderFactory
+	{
+		return $this->state(function () {
+			return [
+				'payment_status' => Order::PAYMENT_STATUS_PENDING,
 			];
 		});
 	}
