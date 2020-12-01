@@ -3,30 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Cinematography;
-use App\Models\SubscriptionPlan;
-use App\Services\ImageGenerator\Contracts\Generator as ImageGenerator;
 use Database\Factories\CinematographyFactory;
 use Illuminate\Database\Seeder;
 
 class CinematographiesSeeder extends Seeder
 {
-	/**
-	 * Image generator.
-	 *
-	 * @var \App\Services\ImageGenerator\Contracts\Generator
-	 */
-	protected $imageGenerator;
-
-
-	/**
-	 * Seeder constructor.
-	 *
-	 * @param \App\Services\ImageGenerator\Contracts\Generator $imageGenerator
-	 */
-	public function __construct(ImageGenerator $imageGenerator)
-	{
-		$this->imageGenerator = $imageGenerator;
-	}
 
 	/**
 	 * Run the database seeds.
@@ -47,14 +28,6 @@ class CinematographiesSeeder extends Seeder
 	protected function cinematographyFactory(): CinematographyFactory
 	{
 		return Cinematography::factory();
-	}
-
-	protected function createCinematographiesMedia()
-	{
-		foreach (Cinematography::all() as $cinematography) {
-			$coverUrl = $this->imageGenerator->getUrl();
-			$posterUrl = $this->imageGenerator->getUrl(480, 768);
-		}
 	}
 
 	/**
