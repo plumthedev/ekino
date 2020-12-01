@@ -4,26 +4,24 @@ namespace Database\Seeders;
 
 use App\Models\Actor;
 use App\Models\Cinematography;
-use App\Services\ImageGenerator\Contracts\Generator as ImageGenerator;
+use App\Services\ImageGenerator\Contracts\Service as ImageGenerator;
 use Database\Factories\ActorFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class ActorsSeeder extends Seeder
 {
 	/**
 	 * Image generator.
 	 *
-	 * @var \App\Services\ImageGenerator\Contracts\Generator
+	 * @var \App\Services\ImageGenerator\Contracts\Service
 	 */
 	protected $imageGenerator;
-
 
 	/**
 	 * Seeder constructor.
 	 *
-	 * @param \App\Services\ImageGenerator\Contracts\Generator $imageGenerator
+	 * @param \App\Services\ImageGenerator\Contracts\Service $imageGenerator
 	 */
 	public function __construct(ImageGenerator $imageGenerator)
 	{
@@ -31,16 +29,16 @@ class ActorsSeeder extends Seeder
 	}
 
 	/**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-    	$this->createActors();
-    	$this->createActorsAvatar();
-    	$this->assignActorsToCinematographies();
-    }
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		$this->createActors();
+		$this->createActorsAvatar();
+		$this->assignActorsToCinematographies();
+	}
 
 	/**
 	 * For all actors in database
@@ -58,7 +56,7 @@ class ActorsSeeder extends Seeder
 				);
 			}
 		}
-    }
+	}
 
 	/**
 	 * Create actors.
@@ -68,7 +66,7 @@ class ActorsSeeder extends Seeder
 	protected function createActors(): void
 	{
 		$this->actorFactory()->count(10)->create();
-    }
+	}
 
 	/**
 	 * Create actors avatars.
@@ -81,13 +79,13 @@ class ActorsSeeder extends Seeder
 	protected function createActorsAvatar(): void
 	{
 		foreach (Actor::all() as $actor) {
-			$avatarUrl = $this->imageGenerator->setSquare(256)->getUrl();
+			$avatar = $this->imageGenerator->person()->getImage();
 
 			$actor
-				->addMediaFromUrl($avatarUrl)
+				->addMedia($avatar)
 				->toMediaCollection(Actor::MEDIA_COLLECTION_AVATAR);
 		}
-    }
+	}
 
 	/**
 	 * Find some random cinematographies.
@@ -97,9 +95,9 @@ class ActorsSeeder extends Seeder
 	protected function findSomeCinematographies(): Collection
 	{
 		return Cinematography::inRandomOrder()->take(
-			mt_rand(2,4)
+			mt_rand(2, 4)
 		)->get();
-    }
+	}
 
 	/**
 	 * Actor factory.
@@ -109,5 +107,5 @@ class ActorsSeeder extends Seeder
 	protected function actorFactory(): ActorFactory
 	{
 		return Actor::factory();
-    }
+	}
 }
