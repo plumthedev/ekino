@@ -2,8 +2,9 @@
 
 namespace App\Services\ImageGenerator\Generators;
 
-use App\Services\ImageGenerator\AbstractGenerator;
 use Illuminate\Http\UploadedFile;
+
+use App\Services\ImageGenerator\AbstractGenerator;
 
 /**
  * Lorem Picsum image generator.

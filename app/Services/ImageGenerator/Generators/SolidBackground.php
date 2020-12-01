@@ -2,10 +2,12 @@
 
 namespace App\Services\ImageGenerator\Generators;
 
+use Exception;
+
+use Illuminate\Http\UploadedFile;
+
 use App\Services\ImageGenerator\AbstractGenerator;
 use App\Services\ImageGenerator\Exceptions\ImageGenerationException;
-use Exception;
-use Illuminate\Http\UploadedFile;
 
 /**
  * Solid background image generator.
