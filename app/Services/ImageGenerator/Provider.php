@@ -80,8 +80,7 @@ class Provider implements Contract
 	 */
 	public function getImagePath(?int $width = null, ?int $height = null): string
 	{
-		$generatedImage = $this->generateImage($width, $height);
-		return $generatedImage->getRealPath();
+		return $this->getImage($width, $height)->getRealPath();
 	}
 
 	/**
