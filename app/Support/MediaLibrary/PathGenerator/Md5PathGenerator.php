@@ -18,7 +18,7 @@ class Md5PathGenerator implements PathGenerator
     public function getPath(Media $media) : string
     {
         $uniqueMediaKey = config('medialibrary.key');
-        $uniqueMediaKey = "{$uniqueMediaKey}|{$media->id}";
+        $uniqueMediaKey = "{$uniqueMediaKey}|{$media->model_id}|{$media->model_type}";
 
         if ($media instanceof Fallback) {
             return $media->getDirectoryPath();
