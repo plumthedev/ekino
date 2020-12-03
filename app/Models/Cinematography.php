@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait as InteractsWithMedia;
 
 /**
  * Cinematography model.
@@ -24,25 +26,40 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Carbon\Carbon                      $updated_at
  * @property-read \Carbon\Carbon                      $created_at
  */
-class Cinematography extends Model
+class Cinematography extends Model implements HasMedia
 {
-	use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
-	const MEDIA_COLLECTION_COVER = 'cinematography.cover';
+    /**
+     * Media collection - cinematography cover.
+     *
+     * @var string
+     */
+    const MEDIA_COLLECTION_COVER = 'cinematography.cover';
 
-	const MEDIA_COLLECTION_POSTER = 'cinematography.poster';
+    /**
+     * Media collection - cinematography poster.
+     *
+     * @var string
+     */
+    const MEDIA_COLLECTION_POSTER = 'cinematography.poster';
 
-	const MEDIA_COLLECTION_GALLERY = 'cinematography.gallery';
+    /**
+     * Media collection - cinematography gallery.
+     *
+     * @var string
+     */
+    const MEDIA_COLLECTION_GALLERY = 'cinematography.gallery';
 
-	/**
-	 * Cinematography movie type.
-	 *
-	 * @var string
-	 */
-	const TYPE_MOVIE = 'movie';
+    /**
+     * Cinematography movie type.
+     *
+     * @var string
+     */
+    const TYPE_MOVIE = 'movie';
 
-	/**
-	 * Cinematography series type.
+    /**
+     * Cinematography series type.
 	 *
 	 * @var string
 	 */
@@ -67,11 +84,11 @@ class Cinematography extends Model
 	public function actors(): BelongsToMany
 	{
 		return $this->belongsToMany(
-			\App\Models\Actor::class,
-			'actor_performs',
-			'cinematography_id',
-			'actor_id',
-		)->withPivot(['perform_name']);
+            Actor::class,
+            'actor_performs',
+            'cinematography_id',
+            'actor_id',
+        )->withPivot(['perform_name']);
 	}
 
 	/**
@@ -93,10 +110,10 @@ class Cinematography extends Model
 	public function rates(): HasMany
 	{
 		return $this->hasMany(
-			\App\Models\Rate::class,
-			'cinematography_id',
-			'id'
-		);
+            Rate::class,
+            'cinematography_id',
+            'id'
+        );
 	}
 
 	/**
@@ -117,9 +134,9 @@ class Cinematography extends Model
 	public function subscriptionPlan(): BelongsTo
 	{
 		return $this->belongsTo(
-			\App\Models\SubscriptionPlan::class,
-			'subscription_plan_id',
-			'id'
-		);
+            SubscriptionPlan::class,
+            'subscription_plan_id',
+            'id'
+        );
 	}
 }
