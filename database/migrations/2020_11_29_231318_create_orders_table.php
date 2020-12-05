@@ -43,6 +43,7 @@ class CreateOrdersTable extends Migration
 			$table->unsignedBigInteger('user_id');
 			$table->unsignedBigInteger('cinematography_id');
 			$table->string('payment_status');
+            $table->integer('access_duration');
 			$table->integer('cost');
 			$table->timestamps();
 

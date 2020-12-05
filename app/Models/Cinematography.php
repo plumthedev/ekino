@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Concerns\GeneratesUniqueKey;
 use App\Support\MediaLibrary\Fallback\Cinematography\Cover as CoverFallback;
 use App\Support\MediaLibrary\Fallback\Cinematography\Poster as PosterFallback;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,7 +38,7 @@ use Spatie\MediaLibrary\Models\Media;
  */
 class Cinematography extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, GeneratesUniqueKey;
 
     /**
      * Media collection - cinematography cover.

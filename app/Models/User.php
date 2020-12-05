@@ -72,6 +72,20 @@ class User extends Authenticatable implements HasMedia
     ];
 
     /**
+     * Get user related accesses.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accesses(): HasMany
+    {
+        return $this->hasMany(
+            \App\Models\Access::class,
+            'user_id',
+            'id'
+        );
+    }
+
+    /**
      * Full name attribute getter.
      *
      * @return string
