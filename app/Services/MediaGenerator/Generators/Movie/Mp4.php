@@ -6,7 +6,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Http\UploadedFile;
 
 use App\Services\MediaGenerator\AbstractGenerator;
-use App\Services\MediaGenerator\Assets;
+use App\Services\MediaGenerator\Contracts\Assets;
 
 /**
  * MP4 movie generator.
@@ -26,8 +26,8 @@ class Mp4 extends AbstractGenerator
     /**
      * Mp4 generator constructor.
      *
-     * @param \Illuminate\Config\Repository       $config
-     * @param \App\Services\MediaGenerator\Assets $assets
+     * @param \Illuminate\Config\Repository                 $config
+     * @param \App\Services\MediaGenerator\Contracts\Assets $assets
      */
     public function __construct(Repository $config, Assets $assets)
     {
