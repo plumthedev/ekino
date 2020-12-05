@@ -20,7 +20,14 @@ class CreateCinematographiesTable extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists($this->tableName);
+		if (Schema::hasTable($this->tableName)) {
+
+			Schema::table($this->tableName, function (Blueprint $table) {
+				$table->dropForeign('subscription_plan_id');
+			});
+
+			Schema::dropIfExists($this->tableName);
+		}
 	}
 
 	/**
@@ -32,6 +39,7 @@ class CreateCinematographiesTable extends Migration
 	{
 		Schema::create($this->tableName, function (Blueprint $table) {
 			$table->id();
+			$table->unsignedBigInteger('subscription_plan_id')->nullable();
 			$table->string('type');
 			$table->string('title');
 			$table->longText('content');
@@ -40,6 +48,10 @@ class CreateCinematographiesTable extends Migration
 			$table->json('meta');
 			$table->date('produced_at');
 			$table->timestamps();
+
+			$table->foreign('subscription_plan_id')
+				->on('subscription_plans')->references('id')
+				->onDelete('cascade');
 		});
 	}
 }
