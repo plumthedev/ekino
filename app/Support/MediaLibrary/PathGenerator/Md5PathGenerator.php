@@ -2,7 +2,7 @@
 
 namespace App\Support\MediaLibrary\PathGenerator;
 
-use App\Support\MediaLibrary\Contracts\Fallback;
+use App\Support\MediaLibrary\Contracts\FallbackMedia;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\PathGenerator\PathGenerator;
 
@@ -17,12 +17,12 @@ class Md5PathGenerator implements PathGenerator
      */
     public function getPath(Media $media) : string
     {
-        $uniqueMediaKey = config('medialibrary.key');
-        $uniqueMediaKey = "{$uniqueMediaKey}|{$media->model_id}|{$media->model_type}";
-
-        if ($media instanceof Fallback) {
+        if ($media instanceof FallbackMedia) {
             return $media->getDirectoryPath();
         }
+
+        $uniqueMediaKey = config('medialibrary.key');
+        $uniqueMediaKey = "{$uniqueMediaKey}|{$media->model_id}|{$media->model_type}";
 
         return md5($uniqueMediaKey) . '/';
     }

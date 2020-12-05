@@ -10,7 +10,7 @@ namespace App\Support\MediaLibrary\Contracts;
  * @author  Kacper Pruszyński (plumthedev) <kacper.pruszysnki99@gmail.com>
  * @version 1.0.0
  */
-interface Fallback
+interface FallbackMedia
 {
     /**
      * Get media fallback directory path.
