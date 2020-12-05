@@ -89,7 +89,7 @@ class ActorsSeeder extends Seeder
      */
     protected function createActorAvatar(Actor $actor): void
     {
-        $avatar = $this->imageGenerator->person()->getImage();
+        $avatar = $this->imageGenerator->personImage()->getMedia();
 
         $actor
             ->addMedia($avatar)

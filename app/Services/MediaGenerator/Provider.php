@@ -8,8 +8,8 @@ use Illuminate\Config\Repository;
 use Illuminate\Http\UploadedFile;
 
 /**
- * Abstract image provider.
- * Provide image as uploaded file or path from temp directory.
+ * Media provider.
+ * Provide media as uploaded file by type.
  *
  * @author Kacper Pruszyński (plumthedev) <kacper.pruszysnki99@gmail.com>
  * @version 1.0.0
@@ -21,14 +21,14 @@ class Provider implements Contract
 	 *
 	 * @var int
 	 */
-	const IMAGE_WIDTH = 1920;
+	const MEDIA_WIDTH = 1920;
 
 	/**
 	 * Default image height.
 	 *
 	 * @var int
 	 */
-	const IMAGE_HEIGHT = 1080;
+	const MEDIA_HEIGHT = 1080;
 
 	/**
 	 * Configuration repository.
@@ -64,9 +64,9 @@ class Provider implements Contract
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	public function getImage(?int $width = null, ?int $height = null): UploadedFile
+	public function getMedia(?int $width = null, ?int $height = null): UploadedFile
 	{
-		return $this->generateImage($width, $height);
+		return $this->generateMedia($width, $height);
 	}
 
 	/**
@@ -77,9 +77,9 @@ class Provider implements Contract
 	 *
 	 * @return string
 	 */
-	public function getImagePath(?int $width = null, ?int $height = null): string
+	public function getMediaPath(?int $width = null, ?int $height = null): string
 	{
-		return $this->getImage($width, $height)->getRealPath();
+		return $this->getMedia($width, $height)->getRealPath();
 	}
 
 	/**
@@ -90,10 +90,10 @@ class Provider implements Contract
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	protected function generateImage(?int $width = null, ?int $height = null): UploadedFile
+	protected function generateMedia(?int $width = null, ?int $height = null): UploadedFile
 	{
-		[$width, $height] = $this->getImageSize($width, $height);
-		return $this->generator->createImage($width, $height);
+		[$width, $height] = $this->composeMediaSize($width, $height);
+		return $this->generator->create($width, $height);
 	}
 
 	/**
@@ -104,11 +104,11 @@ class Provider implements Contract
 	 *
 	 * @return int[]
 	 */
-	protected function getImageSize(?int $width, ?int $height): array
+	protected function composeMediaSize(?int $width, ?int $height): array
 	{
 		$size = [
-			'width'  => $width ?? $this->config->get('image.width', self::IMAGE_WIDTH),
-			'height' => $height ?? $this->config->get('image.height', self::IMAGE_HEIGHT),
+            'width'  => $width ?? $this->config->get('media.width', self::MEDIA_WIDTH),
+            'height' => $height ?? $this->config->get('media.height', self::MEDIA_HEIGHT),
 		];
 
 		return array_values($size);

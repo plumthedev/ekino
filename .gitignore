@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 !/storage/laradock
+!/storage/app/services/*
 /storage/*.key
 /vendor
 /.idea

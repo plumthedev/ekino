@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use RuntimeException;
 
 /**
- * Abstract image generator.
+ * Abstract media generator.
  *
  * @author  Kacper Pruszyński (plumthedev) <kacper.pruszysnki99@gmail.com>
  * @version 1.0.0
@@ -42,33 +42,34 @@ abstract class AbstractGenerator implements Contract
     /**
      * Generate image filename.
      *
+     * @param string $extension
+     *
      * @return string
      */
-    protected function generateFilename(): string
+    protected function generateFilename(string $extension): string
     {
         $filename = Str::random(
-            $this->config->get('image.filename_length', self::FILENAME_LENGTH)
+            $this->config->get('media.filename_length', self::FILENAME_LENGTH)
         );
 
-        return sprintf("%s.jpg", $filename);
+        return sprintf("%s.%s", $filename, $extension);
     }
 
     /**
      * Download image by url to temp directory.
      *
      * @param string $filename
-     * @param string $imageUrl
+     * @param string $mediaUrl
      *
      * @return string
      */
-    protected function downloadImageToTempDirectory(string $filename, string $imageUrl): string
+    protected function downloadToTempDirectory(string $filename, string $mediaUrl): string
     {
         $path = $this->generateTempDirectoryPath($filename);
-        $contents = file_get_contents($imageUrl);
-        $image = fopen($path, 'w+');
+        $contents = file_get_contents($mediaUrl);
+        $media = fopen($path, 'w+');
 
-        fwrite($image, $contents);
-        fclose($image);
+        fwrite($media, $contents);
 
         return $path;
     }

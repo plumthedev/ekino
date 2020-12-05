@@ -17,19 +17,26 @@ interface Service
 	 *
 	 * @return \App\Services\MediaGenerator\Provider
 	 */
-	public function person(): Provider;
+	public function personImage(): Provider;
 
 	/**
 	 * Picsum image provider.
 	 *
 	 * @return \App\Services\MediaGenerator\Provider
 	 */
-	public function picsum(): Provider;
+	public function picsumImage(): Provider;
 
 	/**
 	 * Solid background image generator.
 	 *
 	 * @return \App\Services\MediaGenerator\Provider
 	 */
-	public function solidBackground(): Provider;
+	public function solidBackgroundImage(): Provider;
+
+    /**
+     * Solid background image generator.
+     *
+     * @return \App\Services\MediaGenerator\Provider
+     */
+    public function mp4Movie(): Provider;
 }

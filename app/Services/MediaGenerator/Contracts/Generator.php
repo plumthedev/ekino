@@ -20,5 +20,5 @@ interface Generator
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	public function createImage(int $width, int $height): UploadedFile;
+	public function create(int $width, int $height): UploadedFile;
 }

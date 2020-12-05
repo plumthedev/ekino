@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\MediaGenerator\Generators;
+namespace App\Services\MediaGenerator\Generators\Image;
 
 use App\Services\MediaGenerator\AbstractGenerator;
-use App\Services\MediaGenerator\Exceptions\ImageGenerationException;
+use App\Services\MediaGenerator\Exceptions\MediaGenerationException;
 use Exception;
 use Illuminate\Http\UploadedFile;
 
@@ -25,10 +25,10 @@ class SolidBackground extends AbstractGenerator
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	public function createImage(int $width, int $height): UploadedFile
+	public function create(int $width, int $height): UploadedFile
 	{
 		try {
-			$filename = $this->generateFilename();
+			$filename = $this->generateFilename('jpg');
 			$filePath = $this->generateTempDirectoryPath($filename);
 			$image = $this->generateImage($width, $height);
 			imagejpeg($image, $filePath);
@@ -37,12 +37,12 @@ class SolidBackground extends AbstractGenerator
 				$filePath,
 				$filename
 			);
-		} catch (ImageGenerationException $exception) {
-			throw new ImageGenerationException(
+		} catch (MediaGenerationException $exception) {
+			throw new MediaGenerationException(
 				$exception->getMessage()
 			);
 		} catch (Exception $exception) {
-			throw new ImageGenerationException(
+			throw new MediaGenerationException(
 				sprintf('Cannot generate image resource.')
 			);
 		}
@@ -61,7 +61,7 @@ class SolidBackground extends AbstractGenerator
 		$filled = imagefill($image, 0, 0, $background);
 
 		if (!$filled) {
-			throw new ImageGenerationException(
+			throw new MediaGenerationException(
 				sprintf('Cannot fill generated image background.')
 			);
 		}
@@ -80,7 +80,7 @@ class SolidBackground extends AbstractGenerator
 		$image = imagecreatetruecolor($width, $height);
 
 		if (!is_resource($image)) {
-			throw new ImageGenerationException(
+			throw new MediaGenerationException(
 				sprintf('Cannot generate image resource.')
 			);
 		}
@@ -109,7 +109,7 @@ class SolidBackground extends AbstractGenerator
 		);
 
 		if (empty($color)) {
-			throw new ImageGenerationException(
+			throw new MediaGenerationException(
 				sprintf('Cannot generate image background color.')
 			);
 		}

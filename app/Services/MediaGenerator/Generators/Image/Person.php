@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\MediaGenerator\Generators;
+namespace App\Services\MediaGenerator\Generators\Image;
 
 use App\Services\MediaGenerator\AbstractGenerator;
 use Illuminate\Http\UploadedFile;
@@ -29,10 +29,10 @@ class Person extends AbstractGenerator
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	public function createImage(int $width, int $height): UploadedFile
+	public function create(int $width, int $height): UploadedFile
 	{
-		$filename = $this->generateFilename();
-		$imagePath = $this->downloadImageToTempDirectory($filename, $this->personImageBaseUrl);
+		$filename = $this->generateFilename('jpg');
+		$imagePath = $this->downloadToTempDirectory($filename, $this->personImageBaseUrl);
 
 		return new UploadedFile(
 			$imagePath,

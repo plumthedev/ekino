@@ -2,73 +2,98 @@
 
 namespace App\Services\MediaGenerator;
 
-use App\Services\MediaGenerator\Contracts\Service as Contract;
-use App\Services\MediaGenerator\Generators\Person as PersonImageGenerator;
-use App\Services\MediaGenerator\Generators\Picsum as PicsumImageGenerator;
-use App\Services\MediaGenerator\Generators\SolidBackground as SolidBackgroundImageGenerator;
 use Illuminate\Config\Repository;
 
+use App\Services\MediaGenerator\Contracts\Assets;
+use App\Services\MediaGenerator\Contracts\Service as Contract;
+use App\Services\MediaGenerator\Generators\Image\Person as PersonImageGenerator;
+use App\Services\MediaGenerator\Generators\Image\Picsum as PicsumImageGenerator;
+use App\Services\MediaGenerator\Generators\Image\SolidBackground as SolidBackgroundImageGenerator;
+use App\Services\MediaGenerator\Generators\Movie\Mp4 as Mp4MovieGenerator;
+
 /**
- * Image generator service.
+ * Media generator service.
  *
- * @author Kacper Pruszyński (plumthedev) <kacper.pruszysnki99@gmail.com>
+ * @author  Kacper Pruszyński (plumthedev) <kacper.pruszysnki99@gmail.com>
  * @version 1.0.0
  */
 class Service implements Contract
 {
-	/**
-	 * Service configuration.
-	 *
-	 * @var \Illuminate\Config\Repository
-	 */
-	protected $config;
+    /**
+     * Media generator assets.
+     *
+     * @var \App\Services\MediaGenerator\Contracts\Assets
+     */
+    protected $assets;
 
-	/**
-	 * Image generator service.
-	 *
-	 * @param \Illuminate\Config\Repository $config
-	 */
-	public function __construct(Repository $config)
-	{
-		$this->config = $config;
-	}
+    /**
+     * Service configuration.
+     *
+     * @var \Illuminate\Config\Repository
+     */
+    protected $config;
 
-	/**
-	 * Person image provider.
-	 *
-	 * @return \App\Services\MediaGenerator\Provider
-	 */
-	public function person(): Provider
-	{
-		return new Provider(
-			$this->config,
-			new PersonImageGenerator($this->config)
-		);
-	}
+    /**
+     * Image generator service.
+     *
+     * @param \Illuminate\Config\Repository                 $config
+     * @param \App\Services\MediaGenerator\Contracts\Assets $assets
+     */
+    public function __construct(Repository $config, Assets $assets)
+    {
+        $this->assets = $assets;
+        $this->config = $config;
+    }
 
-	/**
-	 * Picsum image provider.
-	 *
-	 * @return \App\Services\MediaGenerator\Provider
-	 */
-	public function picsum(): Provider
-	{
-		return new Provider(
-			$this->config,
-			new PicsumImageGenerator($this->config)
-		);
-	}
+    /**
+     * Person image provider.
+     *
+     * @return \App\Services\MediaGenerator\Provider
+     */
+    public function personImage(): Provider
+    {
+        return new Provider(
+            $this->config,
+            new PersonImageGenerator($this->config)
+        );
+    }
 
-	/**
-	 * Solid background image generator.
-	 *
-	 * @return \App\Services\MediaGenerator\Provider
-	 */
-	public function solidBackground(): Provider
-	{
-		return new Provider(
-			$this->config,
-			new SolidBackgroundImageGenerator($this->config)
-		);
-	}
+    /**
+     * Picsum image provider.
+     *
+     * @return \App\Services\MediaGenerator\Provider
+     */
+    public function picsumImage(): Provider
+    {
+        return new Provider(
+            $this->config,
+            new PicsumImageGenerator($this->config)
+        );
+    }
+
+    /**
+     * Solid background image generator provider.
+     *
+     * @return \App\Services\MediaGenerator\Provider
+     */
+    public function solidBackgroundImage(): Provider
+    {
+        return new Provider(
+            $this->config,
+            new SolidBackgroundImageGenerator($this->config)
+        );
+    }
+
+    /**
+     * MP4 movie generator provider.
+     *
+     * @return \App\Services\MediaGenerator\Provider
+     */
+    public function mp4Movie(): Provider
+    {
+        return new Provider(
+            $this->config,
+            new Mp4MovieGenerator($this->config, $this->assets)
+        );
+    }
 }

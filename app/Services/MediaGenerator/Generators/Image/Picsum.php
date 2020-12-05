@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\MediaGenerator\Generators;
+namespace App\Services\MediaGenerator\Generators\Image;
 
 use App\Services\MediaGenerator\AbstractGenerator;
 use Illuminate\Http\UploadedFile;
@@ -29,11 +29,11 @@ class Picsum extends AbstractGenerator
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	public function createImage(int $width, int $height): UploadedFile
+	public function create(int $width, int $height): UploadedFile
 	{
-		$filename = $this->generateFilename();
+		$filename = $this->generateFilename('jpg');
 		$imageUrl = $this->composeImageUrl($width, $height);
-		$imagePath = $this->downloadImageToTempDirectory($filename, $imageUrl);
+		$imagePath = $this->downloadToTempDirectory($filename, $imageUrl);
 
 		return new UploadedFile(
 			$imagePath,

@@ -21,7 +21,7 @@ interface Provider
 	 *
 	 * @return \Illuminate\Http\UploadedFile
 	 */
-	public function getImage(?int $width = null, ?int $height = null): UploadedFile;
+	public function getMedia(?int $width = null, ?int $height = null): UploadedFile;
 
 	/**
 	 * Get generated image path in temp directory.
@@ -31,5 +31,5 @@ interface Provider
 	 *
 	 * @return string
 	 */
-	public function getImagePath(?int $width = null, ?int $height = null): string;
+	public function getMediaPath(?int $width = null, ?int $height = null): string;
 }
