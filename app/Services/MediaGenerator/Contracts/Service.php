@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\ImageGenerator\Contracts;
+namespace App\Services\MediaGenerator\Contracts;
 
-use App\Services\ImageGenerator\Provider;
+use App\Services\MediaGenerator\Provider;
 
 /**
  * Image generator service contract.
@@ -15,21 +15,21 @@ interface Service
 	/**
 	 * Person image provider.
 	 *
-	 * @return \App\Services\ImageGenerator\Provider
+	 * @return \App\Services\MediaGenerator\Provider
 	 */
 	public function person(): Provider;
 
 	/**
 	 * Picsum image provider.
 	 *
-	 * @return \App\Services\ImageGenerator\Provider
+	 * @return \App\Services\MediaGenerator\Provider
 	 */
 	public function picsum(): Provider;
 
 	/**
 	 * Solid background image generator.
 	 *
-	 * @return \App\Services\ImageGenerator\Provider
+	 * @return \App\Services\MediaGenerator\Provider
 	 */
 	public function solidBackground(): Provider;
 }

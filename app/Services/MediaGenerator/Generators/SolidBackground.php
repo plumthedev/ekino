@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Services\ImageGenerator\Generators;
+namespace App\Services\MediaGenerator\Generators;
 
+use App\Services\MediaGenerator\AbstractGenerator;
+use App\Services\MediaGenerator\Exceptions\ImageGenerationException;
 use Exception;
-
 use Illuminate\Http\UploadedFile;
-
-use App\Services\ImageGenerator\AbstractGenerator;
-use App\Services\ImageGenerator\Exceptions\ImageGenerationException;
 
 /**
  * Solid background image generator.

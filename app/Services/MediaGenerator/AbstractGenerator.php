@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\ImageGenerator;
+namespace App\Services\MediaGenerator;
 
-use App\Services\ImageGenerator\Contracts\Generator as Contract;
+use App\Services\MediaGenerator\Contracts\Generator as Contract;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Str;
 use RuntimeException;

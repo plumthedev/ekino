@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Services\ImageGenerator;
+namespace App\Services\MediaGenerator;
 
+use App\Services\MediaGenerator\Contracts\Generator;
+use App\Services\MediaGenerator\Contracts\Provider as Contract;
 use Illuminate\Config\Repository;
 use Illuminate\Http\UploadedFile;
-
-use App\Services\ImageGenerator\Contracts\Generator;
-use App\Services\ImageGenerator\Contracts\Provider as Contract;
 
 /**
  * Abstract image provider.
@@ -41,7 +40,7 @@ class Provider implements Contract
 	/**
 	 * Image generator.
 	 *
-	 * @var \App\Services\ImageGenerator\Contracts\Generator
+	 * @var \App\Services\MediaGenerator\Contracts\Generator
 	 */
 	protected $generator;
 
@@ -49,7 +48,7 @@ class Provider implements Contract
 	 * Create new instance of provider.
 	 *
 	 * @param \Illuminate\Config\Repository                    $config
-	 * @param \App\Services\ImageGenerator\Contracts\Generator $generator
+	 * @param \App\Services\MediaGenerator\Contracts\Generator $generator
 	 */
 	public function __construct(Repository $config, Generator $generator)
 	{
@@ -93,7 +92,7 @@ class Provider implements Contract
 	 */
 	protected function generateImage(?int $width = null, ?int $height = null): UploadedFile
 	{
-		list($width, $height) = $this->getImageSize($width, $height);
+		[$width, $height] = $this->getImageSize($width, $height);
 		return $this->generator->createImage($width, $height);
 	}
 

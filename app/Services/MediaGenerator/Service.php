@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Services\ImageGenerator;
+namespace App\Services\MediaGenerator;
 
+use App\Services\MediaGenerator\Contracts\Service as Contract;
+use App\Services\MediaGenerator\Generators\Person as PersonImageGenerator;
+use App\Services\MediaGenerator\Generators\Picsum as PicsumImageGenerator;
+use App\Services\MediaGenerator\Generators\SolidBackground as SolidBackgroundImageGenerator;
 use Illuminate\Config\Repository;
-
-use App\Services\ImageGenerator\Contracts\Service as Contract;
-
-use App\Services\ImageGenerator\Generators\SolidBackground as SolidBackgroundImageGenerator;
-use App\Services\ImageGenerator\Generators\Person as PersonImageGenerator;
-use App\Services\ImageGenerator\Generators\Picsum as PicsumImageGenerator;
 
 /**
  * Image generator service.
@@ -38,7 +36,7 @@ class Service implements Contract
 	/**
 	 * Person image provider.
 	 *
-	 * @return \App\Services\ImageGenerator\Provider
+	 * @return \App\Services\MediaGenerator\Provider
 	 */
 	public function person(): Provider
 	{
@@ -51,7 +49,7 @@ class Service implements Contract
 	/**
 	 * Picsum image provider.
 	 *
-	 * @return \App\Services\ImageGenerator\Provider
+	 * @return \App\Services\MediaGenerator\Provider
 	 */
 	public function picsum(): Provider
 	{
@@ -64,7 +62,7 @@ class Service implements Contract
 	/**
 	 * Solid background image generator.
 	 *
-	 * @return \App\Services\ImageGenerator\Provider
+	 * @return \App\Services\MediaGenerator\Provider
 	 */
 	public function solidBackground(): Provider
 	{

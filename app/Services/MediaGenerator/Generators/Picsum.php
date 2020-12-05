@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services\ImageGenerator\Generators;
+namespace App\Services\MediaGenerator\Generators;
 
+use App\Services\MediaGenerator\AbstractGenerator;
 use Illuminate\Http\UploadedFile;
-
-use App\Services\ImageGenerator\AbstractGenerator;
 
 /**
  * Lorem Picsum image generator.

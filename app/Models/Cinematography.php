@@ -49,6 +49,13 @@ class Cinematography extends Model implements HasMedia
     const MEDIA_COLLECTION_POSTER = 'cinematography.poster';
 
     /**
+     * Media collection - cinematography resource.
+     *
+     * @var string
+     */
+    const MEDIA_COLLECTION_RESOURCE = 'cinematography.resource';
+
+    /**
      * Media collection - cinematography gallery.
      *
      * @var string
@@ -153,6 +160,38 @@ class Cinematography extends Model implements HasMedia
         }
 
         return rating_format($rating);
+    }
+
+    /**
+     * Is cinematography type movie.
+     *
+     * @return bool
+     */
+    public function isMovie(): bool
+    {
+        return $this->isType(self::TYPE_MOVIE);
+    }
+
+    /**
+     * Is cinematography type series.
+     *
+     * @return bool
+     */
+    public function isSeries(): bool
+    {
+        return $this->isType(self::TYPE_SERIES);
+    }
+
+    /**
+     * Check if cinematography is passed type.
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function isType(string $type): bool
+    {
+        return $this->type === $type;
     }
 
     /**

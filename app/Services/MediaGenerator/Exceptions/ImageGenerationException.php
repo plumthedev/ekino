@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ImageGenerator\Exceptions;
+namespace App\Services\MediaGenerator\Exceptions;
 
 use RuntimeException;
 

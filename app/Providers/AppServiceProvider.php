@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\MediaGenerator\Contracts\Service as ImageGeneratorServiceContract;
+use App\Services\MediaGenerator\Service as ImageGeneratorService;
 use Illuminate\Config\Repository;
 use Illuminate\Support\ServiceProvider;
-
-use App\Services\ImageGenerator\Service as ImageGeneratorService;
-use App\Services\ImageGenerator\Contracts\Service as ImageGeneratorServiceContract;
 
 class AppServiceProvider extends ServiceProvider
 {

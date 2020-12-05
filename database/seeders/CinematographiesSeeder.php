@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cinematography;
-use App\Services\ImageGenerator\Contracts\Service as ImageGenerator;
+use App\Services\MediaGenerator\Contracts\Service as ImageGenerator;
 use Database\Factories\CinematographyFactory;
 use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
@@ -13,7 +13,7 @@ class CinematographiesSeeder extends Seeder
     /**
      * Image generator.
      *
-     * @var \App\Services\ImageGenerator\Contracts\Service
+     * @var \App\Services\MediaGenerator\Contracts\Service
      */
     protected $imageGenerator;
 
@@ -27,7 +27,7 @@ class CinematographiesSeeder extends Seeder
     /**
      * Seeder constructor.
      *
-     * @param \App\Services\ImageGenerator\Contracts\Service $imageGenerator
+     * @param \App\Services\MediaGenerator\Contracts\Service $imageGenerator
      * @param \Faker\Generator                               $faker
      */
     public function __construct(ImageGenerator $imageGenerator, Faker $faker)
@@ -110,11 +110,38 @@ class CinematographiesSeeder extends Seeder
      */
     protected function addCinematographyPoster(Cinematography $cinematography): void
     {
-        $cover = $this->imageGenerator->picsum()->getImage(1008, 792);
+        $cover = $this->imageGenerator->picsum()->getImage(792, 1008);
 
         $cinematography
             ->addMedia($cover)
             ->toMediaCollection(Cinematography::MEDIA_COLLECTION_POSTER);
+    }
+
+    /**
+     * Add cinematography resources.
+     *
+     * @param \App\Models\Cinematography $cinematography
+     *
+     * @return void
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     */
+    protected function addCinematographyResources(Cinematography $cinematography): void
+    {
+        $resourcesCount = 1;
+
+        if ($cinematography->isSeries()) {
+            $resourcesCount = $this->faker->numberBetween(8, 12);
+        }
+
+        for($i = 0; $i < $resourcesCount; $i++) {
+            $resource = $this->imageGenerator->solidBackground()->getImage();
+
+            $cinematography
+                ->addMedia($resource)
+                ->toMediaCollection(Cinematography::MEDIA_COLLECTION_RESOURCE);
+        }
     }
 
     /**
@@ -150,6 +177,10 @@ class CinematographiesSeeder extends Seeder
 
             if ($this->faker->boolean) {
                 $this->addCinematographyGallery($cinematography);
+            }
+
+            if ($this->faker->boolean) {
+                $this->addCinematographyResources($cinematography);
             }
         }
     }

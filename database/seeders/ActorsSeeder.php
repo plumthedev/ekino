@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Actor;
 use App\Models\Cinematography;
-use App\Services\ImageGenerator\Contracts\Service as ImageGenerator;
+use App\Services\MediaGenerator\Contracts\Service as ImageGenerator;
 use Database\Factories\ActorFactory;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,7 +15,7 @@ class ActorsSeeder extends Seeder
     /**
      * Image generator.
      *
-     * @var \App\Services\ImageGenerator\Contracts\Service
+     * @var \App\Services\MediaGenerator\Contracts\Service
      */
     protected $imageGenerator;
 
@@ -29,7 +29,7 @@ class ActorsSeeder extends Seeder
     /**
      * Seeder constructor.
      *
-     * @param \App\Services\ImageGenerator\Contracts\Service $imageGenerator
+     * @param \App\Services\MediaGenerator\Contracts\Service $imageGenerator
      * @param \Faker\Generator                               $faker
      */
     public function __construct(ImageGenerator $imageGenerator, Faker $faker)

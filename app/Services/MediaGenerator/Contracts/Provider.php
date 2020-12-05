@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ImageGenerator\Contracts;
+namespace App\Services\MediaGenerator\Contracts;
 
 use Illuminate\Http\UploadedFile;
 
