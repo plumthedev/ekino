@@ -48,19 +48,20 @@ class Actor extends Model implements HasMedia
     }
 
     /**
-     * Get actor avatar. Display fallback avatar if not assigned.
+     * Get actor avatar.
+     * Get fallback avatar if not assigned.
      *
      * @return \Spatie\MediaLibrary\Models\Media
      */
     public function getAvatar(): Media
     {
-        $avatar = $this->getFirstMedia(self::MEDIA_COLLECTION_AVATAR);
+        $media = $this->getFirstMedia(self::MEDIA_COLLECTION_AVATAR);
 
-        if (empty($avatar) || !is_a($avatar, Media::class)) {
-            $avatar = new AvatarFallback();
+        if (empty($media) || !is_a($media, Media::class)) {
+            $media = new AvatarFallback();
         }
 
-        return $avatar;
+        return $media;
     }
 
     /**
