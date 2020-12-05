@@ -41,8 +41,12 @@ class Rate extends Model
 	 */
 	public function author(): BelongsTo
 	{
-		return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
-	}
+        return $this->belongsTo(
+            User::class,
+            'user_id',
+            'id'
+        );
+    }
 
 	/**
 	 * Get rate cinematography.
@@ -52,10 +56,10 @@ class Rate extends Model
 	public function cinematography(): BelongsTo
 	{
 		return $this->belongsTo(
-			\App\Models\Cinematography::class,
-			'cinematography_id',
-			'id'
-		);
+            Cinematography::class,
+            'cinematography_id',
+            'id'
+        );
 	}
 
 	/**
