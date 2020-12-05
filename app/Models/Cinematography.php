@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait as InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollection\MediaCollection;
@@ -22,8 +23,12 @@ use Spatie\MediaLibrary\Models\Media;
  * @property string                                   $title
  * @property string                                   $content
  * @property string|null                              $duration
- * @property string                                   $float
+ * @property float                                    $rating
  * @property array                                    $meta
+ * @property \Spatie\MediaLibrary\Models\Media        $cover
+ * @property \Spatie\MediaLibrary\Models\Media        $poster
+ * @property \Illuminate\Support\Collection           $resources
+ * @property \Illuminate\Support\Collection           $gallery
  * @property \Illuminate\Database\Eloquent\Collection $rates
  * @property \App\Models\SubscriptionPlan             $subscriptionPlan
  * @property-read \Carbon\Carbon                      $produced_at
@@ -108,7 +113,7 @@ class Cinematography extends Model implements HasMedia
      *
      * @return \Spatie\MediaLibrary\Models\Media
      */
-    public function getCover(): Media
+    public function getCoverAttribute(): Media
     {
         $media = $this->getFirstMedia(self::MEDIA_COLLECTION_COVER);
 
@@ -122,11 +127,11 @@ class Cinematography extends Model implements HasMedia
     /**
      * Get cinematography gallery.
      *
-     * @return \Spatie\MediaLibrary\MediaCollection\MediaCollection|null
+     * @return \Illuminate\Support\Collection
      */
-    public function getGallery(): ?MediaCollection
+    public function getGalleryAttribute(): Collection
     {
-        return $this->getMediaCollection(self::MEDIA_COLLECTION_GALLERY);
+        return $this->getMedia(self::MEDIA_COLLECTION_GALLERY);
     }
 
     /**
@@ -135,7 +140,7 @@ class Cinematography extends Model implements HasMedia
      *
      * @return \Spatie\MediaLibrary\Models\Media
      */
-    public function getPoster(): Media
+    public function getPosterAttribute(): Media
     {
         $media = $this->getFirstMedia(self::MEDIA_COLLECTION_POSTER);
 
@@ -144,6 +149,17 @@ class Cinematography extends Model implements HasMedia
         }
 
         return $media;
+    }
+
+    /**
+     * Get cinematography resources.
+     * Get fallback if poster not assigned.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getResourcesAttribute(): Collection
+    {
+        return $this->getMedia(self::MEDIA_COLLECTION_RESOURCE);
     }
 
     /**

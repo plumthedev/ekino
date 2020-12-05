@@ -2,13 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Actor;
-use App\Models\Cinematography;
-use App\Services\MediaGenerator\Contracts\Service as ImageGenerator;
-use Database\Factories\ActorFactory;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
+
+use App\Models\Actor;
+use App\Models\Cinematography;
+use App\Services\MediaGenerator\Contracts\Service as MediaGenerator;
+use Database\Factories\ActorFactory;
+
 
 class ActorsSeeder extends Seeder
 {
@@ -17,7 +19,7 @@ class ActorsSeeder extends Seeder
      *
      * @var \App\Services\MediaGenerator\Contracts\Service
      */
-    protected $imageGenerator;
+    protected $mediaGenerator;
 
     /**
      * Faker generator.
@@ -29,12 +31,12 @@ class ActorsSeeder extends Seeder
     /**
      * Seeder constructor.
      *
-     * @param \App\Services\MediaGenerator\Contracts\Service $imageGenerator
+     * @param \App\Services\MediaGenerator\Contracts\Service $mediaGenerator
      * @param \Faker\Generator                               $faker
      */
-    public function __construct(ImageGenerator $imageGenerator, Faker $faker)
+    public function __construct(MediaGenerator $mediaGenerator, Faker $faker)
     {
-        $this->imageGenerator = $imageGenerator;
+        $this->mediaGenerator = $mediaGenerator;
         $this->faker = $faker;
     }
 
@@ -89,7 +91,7 @@ class ActorsSeeder extends Seeder
      */
     protected function createActorAvatar(Actor $actor): void
     {
-        $avatar = $this->imageGenerator->personImage()->getMedia();
+        $avatar = $this->mediaGenerator->personImage()->getMedia();
 
         $actor
             ->addMedia($avatar)

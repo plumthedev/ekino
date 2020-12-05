@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cinematography;
-use App\Services\MediaGenerator\Contracts\Service as ImageGenerator;
+use App\Services\MediaGenerator\Contracts\Service as MediaGenerator;
 use Database\Factories\CinematographyFactory;
 use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
@@ -15,7 +15,7 @@ class CinematographiesSeeder extends Seeder
      *
      * @var \App\Services\MediaGenerator\Contracts\Service
      */
-    protected $imageGenerator;
+    protected $mediaGenerator;
 
     /**
      * Faker generator.
@@ -27,12 +27,12 @@ class CinematographiesSeeder extends Seeder
     /**
      * Seeder constructor.
      *
-     * @param \App\Services\MediaGenerator\Contracts\Service $imageGenerator
+     * @param \App\Services\MediaGenerator\Contracts\Service $mediaGenerator
      * @param \Faker\Generator                               $faker
      */
-    public function __construct(ImageGenerator $imageGenerator, Faker $faker)
+    public function __construct(MediaGenerator $mediaGenerator, Faker $faker)
     {
-        $this->imageGenerator = $imageGenerator;
+        $this->mediaGenerator = $mediaGenerator;
         $this->faker = $faker;
     }
 
@@ -59,7 +59,7 @@ class CinematographiesSeeder extends Seeder
      */
     protected function addCinematographyCover(Cinematography $cinematography): void
     {
-        $cover = $this->imageGenerator->picsumImage()->getMedia();
+        $cover = $this->mediaGenerator->picsumImage()->getMedia();
 
         $cinematography
             ->addMedia($cover)
@@ -89,7 +89,7 @@ class CinematographiesSeeder extends Seeder
 
         for ($i = 0; $i < $this->faker->numberBetween(3, 9); $i++) {
             $size = $this->faker->randomElement($gallerySizes);
-            $image = $this->imageGenerator->picsumImage()->getMedia($size['width'], $size['height']);
+            $image = $this->mediaGenerator->picsumImage()->getMedia($size['width'], $size['height']);
 
             $cinematography
                 ->addMedia($image)
@@ -110,7 +110,7 @@ class CinematographiesSeeder extends Seeder
      */
     protected function addCinematographyPoster(Cinematography $cinematography): void
     {
-        $cover = $this->imageGenerator->picsumImage()->getMedia(792, 1008);
+        $cover = $this->mediaGenerator->picsumImage()->getMedia(792, 1008);
 
         $cinematography
             ->addMedia($cover)
@@ -136,7 +136,7 @@ class CinematographiesSeeder extends Seeder
         }
 
         for($i = 0; $i < $resourcesCount; $i++) {
-            $resource = $this->imageGenerator->mp4Movie()->getMedia();
+            $resource = $this->mediaGenerator->mp4Movie()->getMedia();
 
             $cinematography
                 ->addMedia($resource)

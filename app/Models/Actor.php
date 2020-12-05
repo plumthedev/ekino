@@ -12,14 +12,15 @@ use Spatie\MediaLibrary\Models\Media;
 /**
  * User model.
  *
- * @property-read int    $id
- * @property string      $first_name
- * @property string      $last_name
- * @property string      $full_name
- * @property string|null $biography
- * @property string|null $perform_name
- * @property-read \Carbon\Carbon $updated_at
- * @property-read \Carbon\Carbon $created_at
+ * @property-read int                          $id
+ * @property string                            $first_name
+ * @property string                            $last_name
+ * @property string                            $full_name
+ * @property string|null                       $biography
+ * @property string|null                       $perform_name
+ * @property \Spatie\MediaLibrary\Models\Media $avatar
+ * @property-read \Carbon\Carbon               $updated_at
+ * @property-read \Carbon\Carbon               $created_at
  */
 class Actor extends Model implements HasMedia
 {
@@ -53,7 +54,7 @@ class Actor extends Model implements HasMedia
      *
      * @return \Spatie\MediaLibrary\Models\Media
      */
-    public function getAvatar(): Media
+    public function getAvatarAttribute(): Media
     {
         $media = $this->getFirstMedia(self::MEDIA_COLLECTION_AVATAR);
 

@@ -2,7 +2,6 @@
 
 namespace App\Support\MediaLibrary\Fallback\Actor;
 
-use App\Models\Actor;
 use App\Support\MediaLibrary\Fallback\Media;
 
 /**
@@ -20,9 +19,9 @@ class Avatar extends Media
      */
     protected $attributes = [
         'id'              => 0,
-        'model_type'      => Actor::class,
+        'model_type'      => \App\Models\Actor::class,
         'model_id'        => 0,
-        'collection_name' => Actor::MEDIA_COLLECTION_AVATAR,
+        'collection_name' => \App\Models\Actor::MEDIA_COLLECTION_AVATAR,
         'name'            => 'avatar',
         'file_name'       => 'avatar.png',
         'mime_type'       => 'image/png',

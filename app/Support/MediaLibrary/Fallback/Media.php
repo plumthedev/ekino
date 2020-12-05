@@ -1,13 +1,14 @@
 <?php
 
-
 namespace App\Support\MediaLibrary\Fallback;
 
+use InvalidArgumentException;
+
+use Illuminate\Support\Str;
+
+use Spatie\MediaLibrary\Models\Media as Model;
 
 use App\Support\MediaLibrary\Contracts\FallbackMedia as Contract;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
-use Spatie\MediaLibrary\Models\Media as Model;
 
 /**
  * Fallback media.

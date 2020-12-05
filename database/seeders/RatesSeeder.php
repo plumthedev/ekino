@@ -17,7 +17,10 @@ class RatesSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$this->createRates();
+        Rate::withoutEvents(function () {
+            $this->createRates();
+            $this->calculateRatesAverage();
+        });
 	}
 
 	/**
@@ -27,17 +30,30 @@ class RatesSeeder extends Seeder
 	 */
 	protected function createRates(): void
 	{
-		$ratesCount = 0;
+		for ($i = 0; $i < mt_rand(25, 75); $i++) {
+            $rate = $this->makeRate();
+            $rate->cinematography()->associate(
+                $this->findRandomCinematography()
+            );
 
-		while ($ratesCount < 125) {
-			$rate = $this->makeRate();
-			$rate->cinematography()->associate(
-				$this->findRandomCinematography()
-			);
+            $rate->save();
+        }
+	}
 
-			$rate->save();
-			$ratesCount++;
-		}
+    /**
+     * Create rates average for cinematographies.
+     *
+     * @return void
+     */
+    protected function calculateRatesAverage(): void
+    {
+        Rate::all()->each(function (Rate $rate) {
+            $cinematography = $rate->cinematography;
+            $rates = $cinematography->rates->pluck('score')->values();
+            $cinematography->rating = $rates->average();
+
+            $cinematography->save();
+        });
 	}
 
 	/**
