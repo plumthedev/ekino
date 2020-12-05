@@ -42,7 +42,7 @@ class Rate extends Model
 	public function author(): BelongsTo
 	{
         return $this->belongsTo(
-            User::class,
+            \App\Models\User::class,
             'user_id',
             'id'
         );
@@ -56,7 +56,7 @@ class Rate extends Model
 	public function cinematography(): BelongsTo
 	{
 		return $this->belongsTo(
-            Cinematography::class,
+            \App\Models\Cinematography::class,
             'cinematography_id',
             'id'
         );
