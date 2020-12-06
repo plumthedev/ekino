@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cinematography;
+use App\Models\Country;
 use App\Services\MediaGenerator\Contracts\Service as MediaGenerator;
 use Database\Factories\CinematographyFactory;
 use Faker\Generator as Faker;
@@ -45,6 +46,16 @@ class CinematographiesSeeder extends Seeder
     {
         $this->createCinematographies();
         $this->createCinematographiesMedia();
+        $this->addCinematographiesCountries();
+    }
+
+    protected function addCinematographiesCountries(): void
+    {
+        foreach (Cinematography::all() as $cinematography) {
+            $cinematography->countries()->attach(
+                $this->findRandomCountry()
+            );
+        }
     }
 
     /**
@@ -135,7 +146,7 @@ class CinematographiesSeeder extends Seeder
             $resourcesCount = $this->faker->numberBetween(8, 12);
         }
 
-        for($i = 0; $i < $resourcesCount; $i++) {
+        for ($i = 0; $i < $resourcesCount; $i++) {
             $resource = $this->mediaGenerator->mp4Movie()->getMedia();
 
             $cinematography
@@ -219,12 +230,17 @@ class CinematographiesSeeder extends Seeder
         $this->seriesFactory()->count(2)->recommendedPremiere()->create();
     }
 
+    private function findRandomCountry(): Country
+    {
+        return Country::inRandomOrder()->first();
+    }
+
     /**
      * Movie factory.
      *
      * @return \Database\Factories\CinematographyFactory
      */
-    protected function movieFactory(): CinematographyFactory
+    private function movieFactory(): CinematographyFactory
     {
         return $this->cinematographyFactory()->movie();
     }
@@ -234,7 +250,7 @@ class CinematographiesSeeder extends Seeder
      *
      * @return \Database\Factories\CinematographyFactory
      */
-    protected function seriesFactory(): CinematographyFactory
+    private function seriesFactory(): CinematographyFactory
     {
         return $this->cinematographyFactory()->series();
     }
