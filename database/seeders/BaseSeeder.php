@@ -68,11 +68,12 @@ class BaseSeeder extends Seeder
 	protected function createSystemUsers(): void
 	{
 		foreach ($this->users as $user) {
-			$this->userFactory()->makeOne([
-				'email'    => $user['email'],
-				'password' => config('auth.passwords.default.privileged', 'password'),
-			])->saveQuietly(); // save system users without events
-		}
+
+            $this->userFactory()->makeOne([
+                'email'    => $user['email'],
+                'password' => config('auth.passwords.default.privileged', 'password'),
+            ])->saveQuietly(); // save system users without events
+        }
 	}
 
 	/**
