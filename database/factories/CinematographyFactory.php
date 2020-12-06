@@ -23,14 +23,16 @@ class CinematographyFactory extends Factory
     public function definition()
     {
         return [
-            'key'         => Cinematography::generateKey(),
-            'type'        => $this->generateType(),
-            'title'       => $this->generateTitle(),
-            'content'     => $this->generateContent(),
-            'duration'    => $this->generateDuration(),
-            'rating'      => $this->generateRating(),
-            'meta'        => $this->generateMeta(),
-            'produced_at' => $this->generateProducedAt(),
+            'key'            => Cinematography::generateKey(),
+            'type'           => $this->generateType(),
+            'title'          => $this->generateTitle(),
+            'content'        => $this->generateContent(),
+            'duration'       => $this->generateDuration(),
+            'rating'         => $this->generateRating(),
+            'is_premiere'    => $this->faker->boolean,
+            'is_recommended' => $this->faker->boolean,
+            'trailer_url'    => $this->faker->url,
+            'produced_at'    => $this->generateProducedAt(),
         ];
     }
 
@@ -57,10 +59,10 @@ class CinematographyFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'produced_at' => $this->generateProducedAt(now()->subWeek()),
-                'meta'        => $this->generateMeta([
-                    'is_premiere' => true,
-                ]),
+                'produced_at' => $this->generateProducedAt(
+                    now()->subMonths($this->faker->numberBetween(1, 3))
+                ),
+                'is_premiere' => true,
             ];
         });
     }
@@ -74,9 +76,7 @@ class CinematographyFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'meta' => $this->generateMeta([
-                    'is_recommended' => true,
-                ]),
+                'is_recommended' => true,
             ];
         });
     }
@@ -90,11 +90,9 @@ class CinematographyFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'produced_at' => $this->generateProducedAt(now()->subWeek()),
-                'meta'        => $this->generateMeta([
-                    'is_premiere'    => true,
-                    'is_recommended' => true,
-                ]),
+                'produced_at'    => $this->generateProducedAt(now()->subWeek()),
+                'is_premiere'    => true,
+                'is_recommended' => true,
             ];
         });
     }
@@ -140,23 +138,6 @@ class CinematographyFactory extends Factory
         );
 
         return $duration->format('H:i:s');
-    }
-
-    /**
-     * Generate cinematography meta.
-     * Pass additional arguments to overwrite generated.
-     *
-     * @param array $attributes
-     *
-     * @return array
-     */
-    protected function generateMeta(array $attributes = []): array
-    {
-        return array_merge([
-            'is_premiere'    => false,
-            'is_recommended' => false,
-            'trailer_url'    => $this->faker->url,
-        ], $attributes);
     }
 
     /**

@@ -46,7 +46,9 @@ class CreateCinematographiesTable extends Migration
 			$table->longText('content');
 			$table->time('duration')->nullable();
 			$table->float('rating');
-			$table->json('meta');
+			$table->boolean('is_recommended')->default(false);
+			$table->boolean('is_premiere')->default(false);
+			$table->string('trailer_url')->nullable();
 			$table->date('produced_at');
 			$table->timestamps();
 
