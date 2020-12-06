@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\MediaLibrary\Fallback\Actor\Avatar as AvatarFallback;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait as InteractsWithMedia;
 use Spatie\MediaLibrary\Models\Media;
@@ -38,7 +39,7 @@ class Actor extends Model implements HasMedia
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function cinematographies()
+    public function cinematographies(): BelongsToMany
     {
         return $this->belongsToMany(
             Cinematography::class,
