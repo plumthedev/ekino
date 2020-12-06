@@ -14,6 +14,16 @@ class CreateCountriesTable extends Migration
     protected $tableName = 'countries';
 
     /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists($this->tableName);
+    }
+
+    /**
      * Run the migrations.
      *
      * @return void
@@ -25,15 +35,5 @@ class CreateCountriesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists($this->tableName);
     }
 }
