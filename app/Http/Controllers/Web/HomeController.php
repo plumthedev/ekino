@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Cinematography\Repository as Cienematographies;
+use App\Repositories\Cinematography\Repository as Cinematographies;
 use Illuminate\Contracts\View\View;
 
 /**
@@ -26,7 +26,7 @@ class HomeController extends Controller
      *
      * @param \App\Repositories\Cinematography\Repository $cinematographies
      */
-    public function __construct(Cienematographies $cinematographies)
+    public function __construct(Cinematographies $cinematographies)
     {
         $this->cinematographies = $cinematographies;
     }
