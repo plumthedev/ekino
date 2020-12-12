@@ -11,42 +11,24 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
-     *
-     * This is used by Laravel authentication to redirect users after login.
-     *
-     * @var string
-     */
-    public const HOME = '/home';
-
-    /**
-     * The controller namespace for the application.
-     *
-     * When present, controller route declarations will automatically be prefixed with this namespace.
-     *
-     * @var string|null
-     */
-    // protected $namespace = 'App\\Http\\Controllers';
-
-    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        $this->configureRateLimiting();
+        $this->limitRateForRoutes();
+        $this->registerRoutes();
+    }
 
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-        });
+    /**
+     * Limit request rate for routes.
+     *
+     * @return void
+     */
+    protected function limitRateForRoutes(): void
+    {
+        $this->rateLimitApi();
     }
 
     /**
@@ -54,10 +36,73 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function rateLimitApi(): void
     {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(60)->by(
+                $this->getRateLimitIdentity()
+            );
         });
+    }
+
+    /**
+     * Register routes for application.
+     *
+     * @return void
+     */
+    protected function registerRoutes(): void
+    {
+        $this->routes(function () {
+            $this->routesForApi();
+            $this->routesForDashboard();
+            $this->routesForWeb();
+        });
+    }
+
+    /**
+     * Register routes for API.
+     *
+     * @return void
+     */
+    protected function routesForApi(): void
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Register routes for dashboard.
+     *
+     * @return void
+     */
+    protected function routesForDashboard(): void
+    {
+        Route::prefix('dashboard')
+            ->middleware('web')
+            ->group(base_path('routes/dashboard.php'));
+    }
+
+    /**
+     * Register for routes for web.
+     *
+     * @return void
+     */
+    protected function routesForWeb(): void
+    {
+        Route::prefix('')
+            ->middleware('web')
+            ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Get rate limit user identity.
+     *
+     * @return string|null
+     */
+    private function getRateLimitIdentity(): ?string
+    {
+        $user = auth()->user();
+        return optional($user)->id ?: request()->ip();
     }
 }
