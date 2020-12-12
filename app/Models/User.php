@@ -8,19 +8,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait as InteractsWithMedia;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait as InteractsWithMedia;
 
 /**
  * User model.
  *
  * @property-read int                                 $id
- * @property-read int                                 $subscription_plan_id
- * @property string                                   $first_name
- * @property string                                   $last_name
+ * @property string|null                              $first_name
+ * @property string|null                              $last_name
  * @property string                                   $full_name
+ * @property string|null                              $country
+ * @property string|null                              $phone_number
+ * @property string|null                              $street_address
+ * @property string|null                              $building_number
+ * @property string|null                              $zip_code
+ * @property string|null                              $city
  * @property string                                   $email
  * @property string                                   $password
  * @property \Spatie\MediaLibrary\Models\Media        $profile_picture
@@ -97,6 +103,45 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * Get user profile picture.
+     * Get fallback profile picture if not assigned.
+     *
+     * @return \Spatie\MediaLibrary\Models\Media
+     */
+    public function getProfilePictureAttribute(): Media
+    {
+        $media = $this->getFirstMedia(self::MEDIA_COLLECTION_PROFILE_PICTURE);
+
+        if (empty($media) || ! is_a($media, Media::class)) {
+            $media = new ProfilePictureFallback();
+        }
+
+        return $media;
+    }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function hasVerifiedEmail(): bool
+    {
+        return ! is_null($this->verified_at);
+    }
+
+    /**
+     * Mark the given user's email as verified.
+     *
+     * @return bool
+     */
+    public function markEmailAsVerified(): bool
+    {
+        return $this->forceFill([
+            'verified_at' => $this->freshTimestamp(),
+        ])->save();
+    }
+
+    /**
      * Get user related orders.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -124,21 +169,13 @@ class User extends Authenticatable implements HasMedia
         );
     }
 
-    /**
-     * Get user profile picture.
-     * Get fallback profile picture if not assigned.
-     *
-     * @return \Spatie\MediaLibrary\Models\Media
-     */
-    public function getProfilePictureAttribute(): Media
+    public function setCountryAttribute(?string $country): void
     {
-        $media = $this->getFirstMedia(self::MEDIA_COLLECTION_PROFILE_PICTURE);
-
-        if (empty($media) || !is_a($media, Media::class)) {
-            $media = new ProfilePictureFallback();
+        if (! is_string($country)) {
+            return;
         }
 
-        return $media;
+        $this->attributes['country'] = Str::upper($country);
     }
 
     /**

@@ -31,13 +31,19 @@ class CreateUsersTable extends Migration
 	public function up(): void
 	{
 		Schema::create($this->tableName, function (Blueprint $table) {
-			$table->id();
-			$table->string('first_name')->nullable();
-			$table->string('last_name')->nullable();
-			$table->string('email')->unique();
-			$table->string('password');
-			$table->timestamp('verified_at')->nullable();
-			$table->timestamps();
-		});
+            $table->id();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('country')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('street_address')->nullable();
+            $table->string('building_number')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamp('verified_at')->nullable();
+            $table->timestamps();
+        });
 	}
 }
