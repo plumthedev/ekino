@@ -40,7 +40,7 @@ class CreateCinematographiesTable extends Migration
 		Schema::create($this->tableName, function (Blueprint $table) {
 			$table->id();
             $table->unsignedBigInteger('subscription_plan_id')->nullable();
-            $table->string('key');
+            $table->string('key')->unique();
             $table->string('type');
 			$table->string('title');
 			$table->longText('content');

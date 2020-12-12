@@ -25,7 +25,7 @@ class CreateAccessesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('cinematography_id');
-            $table->string('key');
+            $table->string('key')->unique();
             $table->string('status');
             $table->timestamp('started_at')->nullable();
             $table->timestamp('ended_at')->nullable();
