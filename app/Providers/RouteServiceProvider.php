@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    const HOME = '/';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -67,6 +69,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function routesForApi(): void
     {
         Route::prefix('api')
+            ->name('api.')
             ->middleware('api')
             ->group(base_path('routes/api.php'));
     }
@@ -79,6 +82,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function routesForDashboard(): void
     {
         Route::prefix('dashboard')
+            ->name('dashboard.')
             ->middleware('web')
             ->group(base_path('routes/dashboard.php'));
     }
@@ -91,6 +95,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function routesForWeb(): void
     {
         Route::prefix('')
+            ->name('web.')
             ->middleware('web')
             ->group(base_path('routes/web.php'));
     }
