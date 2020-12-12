@@ -38,22 +38,23 @@ class CreateCinematographiesTable extends Migration
 	public function up(): void
 	{
 		Schema::create($this->tableName, function (Blueprint $table) {
-			$table->id();
+            $table->id();
             $table->unsignedBigInteger('subscription_plan_id')->nullable();
             $table->string('key')->unique();
             $table->string('type');
-			$table->string('title');
-			$table->longText('content');
-			$table->time('duration')->nullable();
-			$table->float('rating');
-			$table->boolean('is_recommended')->default(false);
-			$table->boolean('is_premiere')->default(false);
-			$table->string('trailer_url')->nullable();
-			$table->date('produced_at');
-			$table->timestamps();
+            $table->string('title');
+            $table->longText('content');
+            $table->boolean('is_active')->default(false);
+            $table->time('duration')->nullable();
+            $table->float('rating');
+            $table->boolean('is_recommended')->default(false);
+            $table->boolean('is_premiere')->default(false);
+            $table->string('trailer_url')->nullable();
+            $table->date('produced_at');
+            $table->timestamps();
 
-			$table->foreign('subscription_plan_id')
-				->on('subscription_plans')->references('id')
+            $table->foreign('subscription_plan_id')
+                ->on('subscription_plans')->references('id')
 				->onDelete('cascade');
 		});
 	}
