@@ -1,0 +1,53 @@
+.navbar {
+    &-nav {
+        margin: 0 $spacer 0 auto;
+
+        .nav {
+            &-item {
+                font-size: $navbar-font-size;
+            }
+
+            &-link {
+                color: $white;
+                font-weight: 400;
+
+                @include hover-focus-active() {
+                    color: $gray-200;
+                }
+            }
+        }
+    }
+
+    &-search {
+        width: 100%;
+        max-width: $navbar-search-width;
+
+        &-group,
+        &-input {
+            width: 100% !important;
+        }
+
+        &-input {
+            background: $gray-900;
+            color: $white;
+            height: auto;
+            border-radius: 27.5px;
+            font-size: 12px;
+            will-change: background-color, color;
+            border-color: $primary;
+            @include transition();
+
+            &:active,
+            &:focus {
+                background-color: $gray-800;
+                border-color: $primary;
+                color: $white;
+            }
+
+            &::placeholder {
+                color: $gray-300;
+                font-size: 12px;
+            }
+        }
+    }
+}
