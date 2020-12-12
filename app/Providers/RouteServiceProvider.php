@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(
-                $this->getRateLimitIdentity()
+                $this->getRateLimitIdentity($request)
             );
         });
     }
@@ -98,11 +98,12 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Get rate limit user identity.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return string|null
      */
-    private function getRateLimitIdentity(): ?string
+    private function getRateLimitIdentity(Request $request): ?string
     {
-        $user = auth()->user();
-        return optional($user)->id ?: request()->ip();
+        return optional($request->user())->id ?: $request->ip();
     }
 }
