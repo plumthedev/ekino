@@ -27,8 +27,8 @@ class Country extends Model
     {
         return $this->belongsToMany(
             Cinematography::class,
-            'actor_performs',
-            'actor_id',
+            'cinematography_countries',
+            'country_id',
             'cinematography_id',
         );
     }
