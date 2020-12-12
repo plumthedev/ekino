@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Cinematography;
 use App\Models\Country;
+use App\Models\Genre;
 use App\Services\MediaGenerator\Contracts\Service as MediaGenerator;
 use Database\Factories\CinematographyFactory;
 use Faker\Generator as Faker;
@@ -47,13 +48,37 @@ class CinematographiesSeeder extends Seeder
         $this->createCinematographies();
         $this->createCinematographiesMedia();
         $this->addCinematographiesCountries();
+        $this->addCinematographiesGenres();
     }
 
+    /**
+     * Add cinematographies countries.
+     *
+     * @return void
+     */
     protected function addCinematographiesCountries(): void
     {
         foreach (Cinematography::all() as $cinematography) {
             $cinematography->countries()->attach(
                 $this->findRandomCountry()
+            );
+        }
+    }
+
+    /**
+     * Add cinematographies genres.
+     *
+     * @return void
+     */
+    protected function addCinematographiesGenres(): void
+    {
+        foreach (Cinematography::all() as $cinematography) {
+            if ($this->faker->boolean) {
+                continue;
+            }
+
+            $cinematography->genres()->attach(
+                $this->findRandomGenre()
             );
         }
     }
@@ -197,16 +222,6 @@ class CinematographiesSeeder extends Seeder
     }
 
     /**
-     * Cinematography factory.
-     *
-     * @return \Database\Factories\CinematographyFactory
-     */
-    protected function cinematographyFactory(): CinematographyFactory
-    {
-        return Cinematography::factory();
-    }
-
-    /**
      * Create movies.
      *
      * @return void
@@ -230,9 +245,34 @@ class CinematographiesSeeder extends Seeder
         $this->seriesFactory()->count(2)->recommendedPremiere()->create();
     }
 
-    private function findRandomCountry(): Country
+    /**
+     * Find random country.
+     *
+     * @return \App\Models\Country
+     */
+    protected function findRandomCountry(): Country
     {
         return Country::inRandomOrder()->first();
+    }
+
+    /**
+     * Find random genre.
+     *
+     * @return \App\Models\Genre
+     */
+    protected function findRandomGenre(): Genre
+    {
+        return Genre::inRandomOrder()->first();
+    }
+
+    /**
+     * Cinematography factory.
+     *
+     * @return \Database\Factories\CinematographyFactory
+     */
+    private function cinematographyFactory(): CinematographyFactory
+    {
+        return Cinematography::factory();
     }
 
     /**

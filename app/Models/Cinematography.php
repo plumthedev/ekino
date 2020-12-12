@@ -124,6 +124,21 @@ class Cinematography extends Model implements HasMedia
     }
 
     /**
+     * Get cinematography related countries.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function genres(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Actor::class,
+            'cinematography_genres',
+            'cinematography_id',
+            'genre_id',
+        );
+    }
+
+    /**
      * Get cinematography cover.
      * Get fallback if cover not assigned.
      *
