@@ -1,18 +1,62 @@
 .navbar {
+    z-index: 999;
+    background-color: $gray-900;
+
+    &-brand {
+        max-width: rem-calc(150);
+    }
+
+    &-toggler {
+        color: $orange;
+
+        &-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: rem-calc(32);
+        }
+    }
+
     &-nav {
         margin: 0 $spacer 0 auto;
 
+        @include media-breakpoint-down(md) {
+            margin: 0 0 $spacer;
+        }
+
         .nav {
             &-item {
-                font-size: $navbar-font-size;
+                font-size: rem-calc(14);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: ($spacer / 2);
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                @include media-breakpoint-down(md) {
+                    margin-right: 0;
+                }
             }
 
             &-link {
                 color: $white;
                 font-weight: 400;
+                will-change: color;
+                @include transition();
 
                 @include hover-focus-active() {
                     color: $gray-200;
+                }
+            }
+
+            &-icon {
+                color: $white;
+
+                @include media-breakpoint-down(md) {
+                    margin-right: ($spacer / 2);
                 }
             }
         }
@@ -20,10 +64,17 @@
 
     &-search {
         width: 100%;
-        max-width: $navbar-search-width;
+        max-width: rem-calc(275);
 
-        &-group,
-        &-input {
+        @include media-breakpoint-down(md) {
+            max-width: unset;
+        }
+
+
+        &-group {
+            border: solid 1px $primary;
+            border-radius: 27.5px;
+            overflow: hidden;
             width: 100% !important;
         }
 
@@ -31,22 +82,29 @@
             background: $gray-900;
             color: $white;
             height: auto;
-            border-radius: 27.5px;
+            border: 0;
             font-size: 12px;
             will-change: background-color, color;
-            border-color: $primary;
             @include transition();
 
-            &:active,
-            &:focus {
-                background-color: $gray-800;
-                border-color: $primary;
+            @include hover-focus-active {
+                background: $gray-900;
                 color: $white;
+                outline: none;
+                box-shadow: none;
             }
 
             &::placeholder {
                 color: $gray-300;
                 font-size: 12px;
+            }
+        }
+
+        &-btn {
+            color: $orange;
+
+            &:hover {
+                color: $orange;
             }
         }
     }
