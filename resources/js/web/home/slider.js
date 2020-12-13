@@ -9,7 +9,7 @@ Swiper.use([Navigation, Pagination]);
         return;
     }
 
-    const sliderSwiper = new Swiper(slider, {
+    new Swiper(slider, {
         loop: true,
         speed: 500,
         autoplay: true,
