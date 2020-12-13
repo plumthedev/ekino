@@ -8,10 +8,25 @@ return [
     ],
     'views' => [
         'components' => [
-            'navbar' => [
+            'navbar'         => [
                 'search' => [
                     'label'       => 'Wyszukiwarka',
                     'placeholder' => 'Co dzisiaj oglądamy?',
+                ],
+            ],
+            'cinematography' => [
+                'details' => [
+                    'type'     => [
+                        'series' => 'Serial',
+                        'movie'  => 'Film',
+                    ],
+                    'duration' => [
+                        'hours'   => 'godz',
+                        'minutes' => 'min',
+                    ],
+                    'rates'    => [
+                        'rates' => 'oceny',
+                    ],
                 ],
             ],
         ],
