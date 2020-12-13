@@ -38,6 +38,8 @@ class HomeController extends Controller
      */
     public function index(): View
     {
+        $this->cinematographies->withCount(['rates']);
+
         return view('web.home.index')->with([
             'cinematographies' => $this->cinematographies->allActive(),
         ]);
