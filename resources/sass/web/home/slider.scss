@@ -1,0 +1,91 @@
+.homepage-slider {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    position: relative;
+
+    &-single {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, rgb(31, 31, 31, 0) 0%, rgba(31, 31, 31) 100%);
+            width: 100%;
+            height: 100%;
+        }
+
+        &-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 1;
+        }
+
+        &-container {
+            position: relative;
+            z-index: 3;
+        }
+    }
+
+    &-pagination {
+        position: absolute;
+        z-index: 5;
+        bottom: rem-calc(55) !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .swiper-pagination-bullet {
+            background: $gray-300;
+            width: rem-calc(10);
+            height: rem-calc(10);
+            cursor: pointer;
+
+            &-active {
+                background: $orange;
+            }
+        }
+    }
+
+    &-button {
+        background: $orange;
+        position: absolute;
+        z-index: 5;
+        top: 50%;
+        width: rem-calc(50);
+        height: rem-calc(50);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: rem-calc(24);
+        color: $gray-900;
+        cursor: pointer;
+        will-change: transform;
+        @include transition();
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &-prev {
+            left: rem-calc(250);
+        }
+
+        &-next {
+            right: rem-calc(250);
+        }
+    }
+}
