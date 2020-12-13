@@ -3,5 +3,11 @@
 @import './config/variables';
 
 @import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~swiper/swiper';
+@import '~swiper/components/navigation/navigation';
+@import '~swiper/components/pagination/pagination';
 
 @import "components/navbar";
+
+@import "home/slider";
