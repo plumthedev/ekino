@@ -21,7 +21,9 @@ use Spatie\MediaLibrary\Models\Media;
  *
  * @property int                                      $id
  * @property string                                   $type
+ * @property string                                   $key
  * @property string                                   $title
+ * @property string                                   $original_title
  * @property string                                   $content
  * @property string|null                              $duration
  * @property float                                    $rating

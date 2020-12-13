@@ -43,6 +43,7 @@ class CreateCinematographiesTable extends Migration
             $table->string('key')->unique();
             $table->string('type');
             $table->string('title');
+            $table->string('original_title')->nullable();
             $table->longText('content');
             $table->boolean('is_active')->default(false);
             $table->time('duration')->nullable();

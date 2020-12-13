@@ -26,6 +26,7 @@ class CinematographyFactory extends Factory
             'key'            => Cinematography::generateKey(),
             'type'           => $this->generateType(),
             'title'          => $this->generateTitle(),
+            'original_title' => $this->generateTitle(),
             'content'        => $this->generateContent(),
             'is_active'      => $this->faker->boolean,
             'duration'       => $this->generateDuration(),
