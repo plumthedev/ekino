@@ -16,6 +16,9 @@ mix.options({
 // development
 if (!mix.inProduction()) {
     mix.sourceMaps();
+    mix.browserSync({
+        proxy: process.env.MIX_BROWSERSYNC_PROXY_ADDRESS,
+    });
 }
 
 // production
