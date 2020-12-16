@@ -30,6 +30,22 @@ $danger: $red !default;
 $light: $gray-300 !default;
 $dark: $gray-900 !default;
 
+$theme-colors: ();
+$theme-colors: map-merge(
+        (
+            "primary": $primary,
+            "secondary": $secondary,
+            "success": $success,
+            "info": $info,
+            "warning": $warning,
+            "danger": $danger,
+            "light": $light,
+            "dark": $dark,
+            "white": $white,
+        ),
+        $theme-colors
+);
+
 
 $body-bg: $gray-900;
 $body-color: $white;
@@ -39,3 +55,7 @@ $navbar-padding-y: rem-calc(20);
 
 $primary-gradient-first: #ffc834;
 $primary-gradient-second: #e29534;
+
+$border-radius: rem-calc(27.5) !default;
+$border-radius-lg: .3rem !default;
+$border-radius-sm: .2rem !default;

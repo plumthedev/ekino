@@ -30,5 +30,10 @@ return [
                 ],
             ],
         ],
+        'home' => [
+            'slider' => [
+                'learn_more' => 'Dowiedz się więcej'
+            ]
+        ]
     ],
 ];

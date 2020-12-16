@@ -1,7 +1,6 @@
 .cinematography-details {
     &-badge {
         font-size: rem-calc(18);
-        border-radius: rem-calc(27.5);
         text-transform: uppercase;
         @include primary-background-gradient();
 
