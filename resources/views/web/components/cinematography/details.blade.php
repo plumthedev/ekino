@@ -1,5 +1,5 @@
 <div class="cinematography-details cinematography-details-{{ $size }}">
-    <span class="badge badge-pill badge-primary badge">
+    <span class="badge badge-pill badge-primary cinematography-details-badge">
         {{ $type }}
     </span>
     <div class="cinematography-details-content">

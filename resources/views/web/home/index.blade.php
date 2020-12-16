@@ -3,7 +3,9 @@
 @section('site-title', 'ekino - internetowa wypożyczalnia filmów')
 
 @section('content')
-    @include('web.home.components.slider.slider', [
-        'slides' => $cinematographies->random(3)
-    ])
+    @if($slides->isNotEmpty())
+        @include('web.home.components.slider.slider', [
+            'slides' => $slides
+        ])
+    @endif
 @endsection

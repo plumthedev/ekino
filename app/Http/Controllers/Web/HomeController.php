@@ -41,7 +41,8 @@ class HomeController extends Controller
         $this->cinematographies->withCount(['rates']);
 
         return view('web.home.index')->with([
-            'cinematographies' => $this->cinematographies->allActive(),
+            'slides'           => $this->cinematographies->orderByRating()->active()->take(3),
+            'cinematographies' => $this->cinematographies->active(),
         ]);
     }
 }

@@ -18,11 +18,23 @@ class Repository extends BaseRepository
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|mixed
      */
-    public function allActive()
+    public function active()
     {
         return $this->findWhere([
             'is_active' => true,
         ]);
+    }
+
+    /**
+     * Order repository by rating.
+     *
+     * @param string $direction
+     *
+     * @return \App\Repositories\Cinematography\Repository
+     */
+    public function orderByRating(string $direction = 'DESC'): Repository
+    {
+        return $this->orderBy('rating', $direction);
     }
 
     /**

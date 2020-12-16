@@ -9,6 +9,7 @@
             class="form-control navbar-search-input"
             id="navbar-search"
             type="text"
+            name="search"
             placeholder="{{ __('web.views.components.navbar.search.placeholder') }}"
         >
         <div class="input-group-append">

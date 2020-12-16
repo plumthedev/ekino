@@ -1,0 +1,25 @@
+.cinematography-details {
+    &-badge {
+        border-radius: 29.5px;
+        background: linear-gradient(140.24deg, #FFC834 15.16%, #E29534 84.43%);
+    }
+
+    &-content {
+        margin: rem-calc(15) 0 rem-calc(25);
+
+        &-title {
+            font-weight: 700;
+            color: $white;
+        }
+
+        &-text {
+            font-weight: 300;
+            margin-right: rem-calc(30);
+            color: $gray-300;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
