@@ -1,0 +1,4 @@
+@mixin primary-background-gradient() {
+    background: $primary-gradient-first;
+    background: linear-gradient(140deg, $primary-gradient-first 15.15%, $primary-gradient-second 85.5%);
+}
