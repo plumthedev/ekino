@@ -54,13 +54,12 @@
             cursor: pointer;
 
             &-active {
-                background: $orange;
+                @include primary-background-gradient();
             }
         }
     }
 
     &-button {
-        background: $orange;
         position: absolute;
         z-index: 5;
         top: 50%;
@@ -75,6 +74,12 @@
         cursor: pointer;
         will-change: transform;
         @include transition();
+        @include primary-background-gradient();
+
+        @include media-breakpoint-down(lg) {
+            display: none;
+            pointer-events: none;
+        }
 
         &:hover {
             transform: scale(1.1);

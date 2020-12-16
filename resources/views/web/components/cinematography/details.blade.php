@@ -25,10 +25,10 @@
         </div>
     </div>
     <div class="cinematography-details-rates">
-            <span class="badge badge-pill badge-primary badge">
+            <span class="badge badge-pill badge-primary cinematography-details-badge rounded">
                 {{ $rate }}
             </span>
-        <span class="cinematography-details-content-text">
+        <span class="cinematography-details-content-text ml-3">
                 {{ $rates_count }}
             </span>
     </div>

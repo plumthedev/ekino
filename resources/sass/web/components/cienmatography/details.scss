@@ -1,7 +1,20 @@
 .cinematography-details {
     &-badge {
-        border-radius: 29.5px;
-        background: linear-gradient(140.24deg, #FFC834 15.16%, #E29534 84.43%);
+        font-size: rem-calc(18);
+        border-radius: rem-calc(27.5);
+        text-transform: uppercase;
+        @include primary-background-gradient();
+
+        &.rounded {
+            padding: 0;
+            width: rem-calc(36);
+            height: rem-calc(36);
+            font-size: rem-calc(16);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50% !important;
+        }
     }
 
     &-content {
@@ -10,6 +23,8 @@
         &-title {
             font-weight: 700;
             color: $white;
+            font-size: rem-calc(48);
+            margin-bottom: rem-calc(15);
         }
 
         &-text {
@@ -22,4 +37,40 @@
             }
         }
     }
+
+    &-rates {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
+
+/**
+ * Large cinematography details modifier.
+ */
+.cinematography-details-lg {
+    .cinematography-details {
+        &-badge {
+            font-size: rem-calc(24);
+            padding: rem-calc(6) rem-calc(20);
+
+            &.rounded {
+                width: rem-calc(38);
+                height: rem-calc(38);
+                font-size: rem-calc(16);
+            }
+        }
+
+        &-content {
+            &-title {
+                font-size: rem-calc(54);
+            }
+
+            &-text {
+                font-size: rem-calc(18);
+            }
+        }
+    }
+}
+
+
